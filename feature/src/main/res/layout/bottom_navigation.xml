@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ltthuc.feature.presentation.page.navigation.NavigationViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dimen_8dp_h"
+        app:cardCornerRadius="@dimen/dimen_0dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/linBottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_navigation_height"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.homeClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    is_selected="@{viewModel.tabOneSelected}"
+                    android:layout_width="26dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_home"
+                    app:tint="@color/bottom_item_bg"  />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    is_selected="@{viewModel.tabOneSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="home"
+                    android:text="home"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize"
+                    tools:textColor="@color/secondaryColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.tabTwoClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    is_selected="@{viewModel.tabTwoSelected}"
+                    android:layout_width="26dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_home"
+                    app:tint="@color/bottom_item_bg"  />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    is_selected="@{viewModel.tabTwoSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Notification"
+                    android:text="Notification"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize"
+                    tools:textColor="@color/secondaryColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.settingsClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="26dp"
+                    android:layout_height="@dimen/bottom_navigation_icon"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+
+                    android:src="@drawable/icon_settings"
+                    is_selected="@{viewModel.tabSettingSelected}"
+                    app:tint="@color/bottom_item_bg" />
+
+                <TextView
+                    is_selected="@{viewModel.tabSettingSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

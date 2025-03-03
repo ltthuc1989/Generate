@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_navigation_icon">26dp</dimen>
+    <dimen name="bottom_navigation_icon_marginBottom">2dp</dimen>
+    <dimen name="bottom_navigation_title_textSize">11sp</dimen>
+    <dimen name="bottom_navigation_shadow_height">4dp</dimen>
+    <dimen name="bottom_navigation_elevation">10dp</dimen>
+    <dimen name="bottom_navigation_height">58dp</dimen>
+    <dimen name="margin_bottom">212dp</dimen>
+
+
+    <dimen name="textSize_h1">26sp</dimen>
+    <dimen name="textSize_h2">22sp</dimen>
+    <dimen name="textSize_h3">18sp</dimen>
+    <dimen name="textSize_h4">14sp</dimen>
+    <dimen name="textSize_h5">11sp</dimen>
+    <dimen name="textSize_h6">10sp</dimen>
+    <dimen name="textSize_p">15sp</dimen>
+</resources>

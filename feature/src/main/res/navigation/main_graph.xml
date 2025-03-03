@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ltthuc.feature.presentation.page.splash.SplashFragment"
+        android:label="SplashFragment" />
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ltthuc.feature.presentation.page.home.HomeFragment"
+        android:label="MainFragment" />
+
+    <action
+        android:id="@+id/toHome"
+        app:destination="@id/homeFragment"
+        />
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.ltthuc.feature.presentation.page.notification.NotificationFragment"
+        android:label="Notification" />
+
+    <action
+        android:id="@+id/toNotification"
+        app:destination="@id/notification"
+        />
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ltthuc.feature.presentation.page.settings.SettingsFragment"
+        android:label="MainFragment" />
+
+    <action
+        android:id="@+id/toSettings"
+        app:destination="@id/settingsFragment"
+        />
+
+</navigation>
