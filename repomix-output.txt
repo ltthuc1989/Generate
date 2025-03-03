@@ -1,0 +1,3735 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+
+Additional Info:
+----------------
+
+================================================================
+Directory Structure
+================================================================
+feature/
+  src/
+    main/
+      java/
+        com/
+          ltthuc/
+            feature/
+              data/
+                datastore/
+                  DataStoreKey.kt
+                repository/
+                  ApiServiceImp.kt
+              di/
+                imp/
+                  FeatureSettingImp.kt
+                FeatureModule.kt
+              domain/
+                entity/
+                  ApiPath.kt
+                  ApiResponse.kt
+                  entity.kt
+                repository/
+                  ApiDownloadFileService.kt
+                  ApiExternalService.kt
+                  ApiService.kt
+                  ApiVnMobileService.kt
+                usecase/
+                  SaveInputStreamAsPdfFileOnDirectoryUseCase.kt
+                entity.kt
+              dummy/
+                DummyTest.kt
+              presentation/
+                adapter/
+                  AdapterRowData.kt
+                  NotificationsAdapter.kt
+                page/
+                  home/
+                    HomeFragment.kt
+                    HomeViewModel.kt
+                  navigation/
+                    NavigationFragment.kt
+                    NavigationViewModel.kt
+                  notification/
+                    NotificationFragment.kt
+                    NotificationViewModel.kt
+                  settings/
+                    SettingsFragment.kt
+                    SettingsViewModel.kt
+                  splash/
+                    SplashFragment.kt
+                    SplashViewModel.kt
+              utils/
+                FeatureConstants.kt
+                TimeUtils.kt
+            navigation/
+              api/
+                model/
+                  Destination.kt
+                Navigator.kt
+              impl/
+                di/
+                  NavigationModule.kt
+                DefaultNavigator.kt
+            network/
+              di/
+                NetworkModule.kt
+              helper/
+                ExceptionCallAdapterFactory.kt
+                NetworkConnectionInterceptor.kt
+              paging/
+                datasource/
+                  BasePagingSource.kt
+              response/
+                PagedResponse.kt
+                ResponseData.kt
+            ui/
+              adapter/
+                section/
+                  CustomItemDecoration.kt
+                  SectionHeaderDecoration.kt
+                AdapterRowData.kt
+                BaseAdapter.kt
+                BasePagingAdapter.kt
+                BaseViewHolder.kt
+                OnStartDragListener.kt
+                PagingLoadStateAdapter.kt
+                SingleLayoutAdapter.kt
+                SingleLayoutPagingAdapter.kt
+              base/
+                toolbar/
+                  IToolbar.kt
+                  ToolbarManager.kt
+                BaseBottomSheetFragment.kt
+                BaseDialogFragment.kt
+                BaseFragment.kt
+                BaseProgress.kt
+                BaseViewModel.kt
+                UIState.kt
+      res/
+        drawable/
+          bg_transparent.xml
+          rounded_edt.xml
+          rounded_gray.xml
+          rounded_toggel.xml
+        layout/
+          bottom_navigation.xml
+          fragment_home.xml
+          fragment_noti.xml
+          fragment_settings.xml
+          fragment_splash.xml
+          item_notification.xml
+          test_toolbar.xml
+        menu/
+          home_menu.xml
+        navigation/
+          main_graph.xml
+        values/
+          dimens.xml
+          strings.xml
+          styles.xml
+      AndroidManifest.xml
+  .gitignore
+  build.gradle.kts
+
+================================================================
+Files
+================================================================
+
+================
+File: feature/src/main/java/com/ltthuc/feature/data/datastore/DataStoreKey.kt
+================
+package com.ltthuc.feature.data.datastore
+
+object DataStoreKey {
+    const val TRAIN_MAP = "train_map"
+    const val RATE_VIEW_LIST_DETAIL = "view_list_detail"
+    const val RATE_VIEW_DETAIL = "view_detail"
+    const val RATE_CALCULATE = "rating_calculate"
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/data/repository/ApiServiceImp.kt
+================
+package com.ltthuc.feature.data.repository
+
+import com.ltthuc.feature.domain.entity.NotificationModel
+import com.ltthuc.feature.domain.repository.ApiExternalService
+import com.ltthuc.feature.domain.repository.ApiService
+import com.ltthuc.feature.domain.repository.ApiVnMobileService
+import okhttp3.ResponseBody
+import javax.inject.Inject
+
+class ApiServiceImp @Inject constructor(
+    private val apiVnMobileService: ApiVnMobileService,
+    private  val apiExternalService: ApiExternalService
+) : ApiService {
+    override suspend fun getNotifications(countryCode: String): List<NotificationModel> {
+
+        return  apiVnMobileService.getNotifications(countryCode)
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/di/imp/FeatureSettingImp.kt
+================
+package com.ltthuc.feature.di.imp
+
+import com.ltthuc.ads.AdsSettings
+import com.ltthuc.feature.R
+import com.ltthuc.ui.adapter.MoreAppRowData
+import com.ltthuc.ui.base.settings.IFeatureSetting
+
+
+class FeatureSettingImp: IFeatureSetting {
+    override fun updateAdsConfig() {
+        AdsSettings.isOtherAppShowing = true
+    }
+
+    override fun getAppList(): List<MoreAppRowData> {
+        return arrayListOf(
+            MoreAppRowData(
+                R.drawable.icon_app_heatindex,
+                "Heat Index Calculator - How to",
+                "trithuc.heatindex.calc"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_airquality,
+                "Air quality Index - PM2.5",
+                "com.trithuc.airquality"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_fluent_calc,
+                "Fluent Stuttering Calculator",
+                "com.trithuc.fluencycalculator"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_mortgage_calc,
+                "Mortgage Payoff Calculator",
+                "com.trithuc.mortgagecalc"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_investment_calc,
+                "Investment Calculator - Calc",
+                "trithuc.investment.calc"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_atmortizaiton_calc,
+                "Amortizing Loan Calculator",
+                "trithuc.amortization.calc"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_cd_calculator,
+                "Cd Calculator - Calc",
+                "com.trithuc.cdcalculator"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_dewpoint,
+                "Dew Point Humidity Calculator",
+                "com.trithuc.dewpoint"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_windchill,
+                "Wind chill & Humid Calculators",
+                "trithuc.windchill.calc"
+            ),
+            MoreAppRowData(
+                R.drawable.icon_app_positionsize,
+                "Position Size Lots Pip Calc Fx",
+                "com.trithuc.positionsize.app"
+            )
+        )
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/di/FeatureModule.kt
+================
+package com.ltthuc.feature.di
+
+import com.ltthuc.feature.di.imp.FeatureSettingImp
+import com.ltthuc.feature.domain.repository.ApiExternalService
+import com.ltthuc.feature.domain.repository.ApiService
+import com.ltthuc.feature.data.repository.ApiServiceImp
+import com.ltthuc.feature.domain.repository.ApiDownloadFileService
+import com.ltthuc.feature.domain.repository.ApiVnMobileService
+import com.ltthuc.network.helper.ExceptionCallAdapterFactory
+import com.ltthuc.ui.base.settings.IFeatureSetting
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
+import javax.inject.Singleton
+
+@InstallIn(SingletonComponent::class)
+@Module
+interface FeatureModule {
+
+    companion object {
+        @Provides
+        @Singleton
+        fun provideApiRetrofit(
+            apiVnMobileService: ApiVnMobileService,
+            apiExternalService: ApiExternalService
+        ): ApiService = ApiServiceImp(apiVnMobileService, apiExternalService)
+
+        @Provides
+        @Singleton
+        @Named("download")
+        fun provideDownloadRetrofit(client: OkHttpClient): Retrofit =
+            Retrofit.Builder()
+                .baseUrl(ApiDownloadFileService.DOWNLOAD_URL)
+                .client(client)
+                .addCallAdapterFactory(ExceptionCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        @Provides
+        @Singleton
+        fun provideVnMobileService(@Named("VnMobile") retrofit: Retrofit): ApiVnMobileService =
+            retrofit.create(ApiVnMobileService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideExternalService(@Named("External") retrofit: Retrofit): ApiExternalService =
+            retrofit.create(ApiExternalService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideDownloadService(@Named("download") retrofit: Retrofit): ApiDownloadFileService =
+            retrofit.create(ApiDownloadFileService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideFeatureSetting(): IFeatureSetting = FeatureSettingImp()
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/entity/ApiPath.kt
+================
+package com.ltthuc.feature.domain.entity
+
+object ApiPath {
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/entity/ApiResponse.kt
+================
+package com.ltthuc.feature.domain.entity
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/entity/entity.kt
+================
+package com.ltthuc.feature.domain.entity
+
+import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.Date
+
+data class NotificationModel(
+    val name: String,
+    @SerializedName("name_vi")
+    val nameVI: String,
+    val channel: String,
+    val uid: String,
+    @SerializedName("uid_prefix")
+    val uidPrefix: String,
+    val duration: Double,
+    val last_noti: String,
+    val isFree: Int,
+    val purchaseKey: String,
+    @SerializedName("latest_aqi")
+    val aqi: Int,
+    var isPurchased: Boolean? = false
+) {
+    fun getLastNoti(dateFormat: SimpleDateFormat): Date {
+        return try {
+
+            dateFormat.parse(last_noti) ?: Date()
+        } catch (ex: Exception) {
+            Date()
+        }
+    }
+
+    fun isFree(): Boolean {
+        return isFree == 1
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/repository/ApiDownloadFileService.kt
+================
+package com.ltthuc.feature.domain.repository
+
+import okhttp3.ResponseBody
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Streaming
+import retrofit2.http.Url
+
+interface ApiDownloadFileService {
+    @Streaming
+    @GET
+    suspend fun downloadFile(@Url fileUrl: String): Response<ResponseBody>
+
+    companion object {
+
+        const val DOWNLOAD_URL = ""
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/repository/ApiExternalService.kt
+================
+package com.ltthuc.feature.domain.repository
+
+
+interface ApiExternalService {
+
+    companion object {
+
+        const val MONITORING_URL = "https://onemotoring.lta.gov.sg"
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/repository/ApiService.kt
+================
+package com.ltthuc.feature.domain.repository
+
+import com.ltthuc.feature.domain.entity.NotificationModel
+import okhttp3.ResponseBody
+
+interface ApiService {
+    suspend fun getNotifications(countryCode: String): List<NotificationModel>
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/repository/ApiVnMobileService.kt
+================
+package com.ltthuc.feature.domain.repository
+
+import com.ltthuc.feature.domain.entity.NotificationModel
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface ApiVnMobileService {
+
+    @GET("/AirQuality/api.php?method=notifications")
+    suspend fun getNotifications(@Query("countryCode") countryCode: String): List<NotificationModel>
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/usecase/SaveInputStreamAsPdfFileOnDirectoryUseCase.kt
+================
+package com.ltthuc.feature.domain.usecase
+
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import javax.inject.Inject
+
+class SaveInputStreamAsPdfFileOnDirectoryUseCase @Inject constructor(){
+
+    /**
+     * Create and save inputStream as a file in the indicated directory
+     * the inputStream to save will be a PDF file with random UUID as name
+     */
+    suspend operator fun invoke(fileName: String, inputStream: InputStream, directory: File): File? {
+        var outputFile: File? = null
+        withContext(Dispatchers.IO) {
+            try {
+                val name = "$fileName.pdf"
+                val outputDir = File(directory, "download")
+                outputFile = File(outputDir, name)
+                makeDirIfShould(outputDir)
+                val outputStream = FileOutputStream(outputFile, false)
+                inputStream.use { fileOut -> fileOut.copyTo(outputStream) }
+                outputStream.close()
+
+            } catch (e: IOException) {
+                // Something went wrong
+            }
+        }
+        return outputFile
+    }
+
+    private fun makeDirIfShould(outputDir: File) {
+        if (outputDir.exists().not()) {
+            outputDir.mkdirs()
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/domain/entity.kt
+================
+package com.ltthuc.feature.domain
+
+================
+File: feature/src/main/java/com/ltthuc/feature/dummy/DummyTest.kt
+================
+package com.ltthuc.feature.dummy
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/adapter/AdapterRowData.kt
+================
+package com.ltthuc.feature.presentation.adapter
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/adapter/NotificationsAdapter.kt
+================
+package com.ltthuc.feature.presentation.adapter
+
+import com.ltthuc.feature.R
+import com.ltthuc.feature.databinding.ItemNotificationBinding
+import com.ltthuc.feature.domain.entity.NotificationModel
+import com.ltthuc.ui.adapter.BaseViewHolder
+import com.ltthuc.ui.adapter.SingleLayoutAdapter
+
+class NotificationsAdapter(onViewClicked: ((Int, (NotificationModel)) -> Unit)): SingleLayoutAdapter<NotificationModel, ItemNotificationBinding>(
+    R.layout.item_notification, onItemClicked = onViewClicked) {
+
+    override fun onBindViewHolder(
+        holder: BaseViewHolder<NotificationModel, ItemNotificationBinding>,
+        position: Int
+    ) {
+        super.onBindViewHolder(holder, position)
+        val item = getItem(position)
+        holder.binding.name.text = item.name
+    }
+//    @SuppressLint("NotifyDataSetChanged")
+//    fun selectRow(position: Int) {
+//        getItem(position).isSelect= !getItem(position).isSelect
+//        if (position ==0 && getItem(position).isSelect) {
+//            for (i in 1..<itemCount-1) {
+//                getItem(i).isSelect = false
+//            }
+//            notifyDataSetChanged()
+//        } else if (position != 0 && getItem(0).isSelect) {
+//            getItem(0).isSelect = false
+//            notifyItemChanged(0)
+//            notifyItemChanged(position)
+//        } else {
+//            notifyItemChanged(position)
+//        }
+//
+//    }
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/home/HomeFragment.kt
+================
+package com.ltthuc.feature.presentation.page.home
+
+import android.graphics.Color
+import android.os.Bundle
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.ltthuc.ads.AdsManager
+import com.ltthuc.ads.BannerAd
+import com.ltthuc.ads.BannerType
+import com.ltthuc.feature.R
+import com.ltthuc.feature.databinding.FragmentHomeBinding
+import com.ltthuc.ui.base.BaseFragment
+import com.ltthuc.ui.base.toolbar.IToolbar
+import com.ltthuc.ui.base.toolbar.ToolbarItem
+import com.ltthuc.ui.base.toolbar.ToolbarManager
+import com.ltthuc.ui.base.toolbar.ToolbarViewModel
+import com.ltthuc.ui.extension.showToast
+import com.ltthuc.ui.helper.rate.RateConfig
+import com.ltthuc.ui.helper.rate.RateViewModel
+import com.ltthuc.utils.ISecretAdsKey
+
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(FragmentHomeBinding::inflate) {
+    private val viewModel: HomeViewModel by viewModels()
+
+    @Inject
+    lateinit var iSecretAdsKey: ISecretAdsKey
+    @Inject
+    lateinit var adsManager: AdsManager
+
+    override fun getVM(): HomeViewModel = viewModel
+
+    private val rateHelper: RateViewModel by viewModels()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+
+    override fun bindVM(binding: FragmentHomeBinding, vm: HomeViewModel) {
+        binding.viewModel = viewModel
+    }
+
+    override fun setUpToolbar() {
+        super.setUpToolbar()
+        showBottomBar(true)
+        val config = ToolbarManager.ToolbarConfig(
+            title = "Home",
+            titleSize = 20f,
+            backgroundColorResId = com.ltthuc.ui.R.color.color_orange,
+            menuRes = R.menu.home_menu,
+            onMenuItemClick = { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_profile -> {
+
+                        true
+                    }
+                    else -> false
+                }
+            }
+        )
+
+        (requireActivity() as IToolbar).getToolbar().configureToolbar(config)
+        viewLifecycleOwner.lifecycleScope.launch {
+            adsManager.showAds(binding.bannerAdView)
+        }
+
+    }
+
+    override fun rightClickToolbar() {
+        super.rightClickToolbar()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        rateHelper.setRateConfig(RateConfig())
+        rateHelper.showRateDialog(requireActivity())
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bannerAd?.isExpanded = true
+        logD("onDestroyView", "enter")
+      //  adsManager.removeAd()
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/home/HomeViewModel.kt
+================
+package com.ltthuc.feature.presentation.page.home
+
+import android.content.Context
+import android.text.InputType
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.api.model.Destination
+import com.ltthuc.preferences.api.DatastoreRepository
+import com.ltthuc.preferences.api.PreferencesRepository
+import com.ltthuc.ui.base.BaseViewModel
+import com.ltthuc.ui.extension.alertDialog
+import com.ltthuc.ui.extension.getActivity
+import com.ltthuc.ui.extension.logD
+import com.ltthuc.ui.extension.message
+import com.ltthuc.ui.extension.title
+import dagger.hilt.android.lifecycle.HiltViewModel
+
+import javax.inject.Inject
+
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val navigator: Navigator,
+    private val datastoreRepository: PreferencesRepository
+) : BaseViewModel() {
+
+    var inflationValue by datastoreRepository.getPreferences("inflationValue", 2.9f)
+
+    init {
+
+    }
+    fun setData(context: Context) {
+        context.getActivity().alertDialog("bcd"){
+//            OnPositiveClicked {
+//               logD("abc")
+//            }
+//            OnNegativeClicked {
+//                logD("abcd")
+//            }
+            setEditText(true, true, hintText = "abc", com.ltthuc.ui.components.dialog.InputType.TEXT_SINGLE_LINE)
+            setPositiveBtnText("Yes")
+        }.show()
+    }
+
+    fun gotoSetting() {
+        navigator.goTo(Destination.Setting)
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/navigation/NavigationFragment.kt
+================
+package com.ltthuc.feature.presentation.page.navigation
+
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.ltthuc.feature.R
+import com.ltthuc.feature.databinding.BottomNavigationBinding
+import com.ltthuc.ui.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class NavigationFragment: BaseFragment<BottomNavigationBinding, NavigationViewModel>(BottomNavigationBinding::inflate) {
+    private val viewModel: NavigationViewModel by viewModels()
+
+    override fun getVM(): NavigationViewModel  = viewModel
+
+    override fun bindVM(binding: BottomNavigationBinding, vm: NavigationViewModel) {
+        binding.viewModel = viewModel
+        viewModel.navController = requireActivity().findNavController(com.ltthuc.ui.R.id.fragmentContainerView)
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/navigation/NavigationViewModel.kt
+================
+package com.ltthuc.feature.presentation.page.navigation
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import com.ltthuc.ads.AdsManager
+import com.ltthuc.feature.MainGraphDirections
+import com.ltthuc.feature.R
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.api.model.Destination
+import com.ltthuc.preferences.api.DatastoreRepository
+import com.ltthuc.ui.base.BaseViewModel
+import com.ltthuc.ui.utils.livedata.SingleLiveEvent
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import javax.inject.Inject
+
+@HiltViewModel
+ class NavigationViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val datastoreRepository: DatastoreRepository,
+    private val navigator: Navigator,
+     private val adsManager: AdsManager
+) : BaseViewModel() {
+
+    var navController: NavController? = null
+
+    val tabOneSelected = SingleLiveEvent<Boolean>()
+    val tabSettingSelected = SingleLiveEvent<Boolean>()
+    val tabTwoSelected = SingleLiveEvent<Boolean>()
+    val tabThreeSelected = SingleLiveEvent<Boolean>()
+    private var _tabTitles = MutableLiveData<List<String>>()
+    var tabTitles: LiveData<List<String>> = _tabTitles
+
+    private val currentDestination
+        get() = navController?.currentBackStackEntry?.destination?.id
+
+    private var targetDestination: Destination?
+        get() = savedStateHandle[TARGET_DESTINATION]
+        set(value) = savedStateHandle.set(TARGET_DESTINATION, value)
+
+    init {
+        navigator.destination
+            .onEach { destination ->
+                val navController = navController ?: return@onEach
+                navigateTo(
+                    navController = navController,
+                    destination = destination
+                )
+
+            }
+            .launchIn(viewModelScope)
+        tabOneSelected.value = true
+
+    }
+
+    fun setTabTitles(titles: List<String>) {
+        _tabTitles.value = titles
+    }
+
+    private fun navigateTo(
+        navController: NavController,
+        destination: Destination,
+        navOptions: NavOptions? = null
+    ) {
+
+        when (destination) {
+
+            is Destination.Back -> {
+                navController.navigateUp()
+            }
+
+            is Destination.Home -> {
+                if (currentDestination == R.id.splashFragment) {
+                    navController.popBackStack()
+                }
+                if (!navController.popBackStack(R.id.homeFragment, false)) {
+                    navController.navigate(
+                        MainGraphDirections.toHome(),
+                        navOptions
+                    )
+                }
+            }
+
+            is Destination.Notification -> {
+                if (currentDestination == R.id.splashFragment) {
+                    navController.popBackStack()
+                }
+                if (!navController.popBackStack(R.id.notification, false)) {
+                    navController.navigate(
+                        MainGraphDirections.toNotification(),
+                        navOptions
+                    )
+                }
+            }
+
+
+            is Destination.Setting -> {
+                if (currentDestination == R.id.splashFragment) {
+                    navController.popBackStack()
+                }
+                if (!navController.popBackStack(R.id.settingsFragment, false)) {
+                    navController.navigate(
+                        MainGraphDirections.toSettings(),
+                        navOptions
+                    )
+                }
+            }
+
+            else -> {}
+        }
+
+
+    }
+
+    fun homeClick() {
+        if (tabOneSelected.value == true) return
+        //adsManager.removeAd()
+        tabOneSelected.value = true
+        tabTwoSelected.value = false
+        tabThreeSelected.value = false
+        tabSettingSelected.value = false
+        navigator.goTo(Destination.Home)
+
+    }
+
+    fun tabTwoClick() {
+        if (tabTwoSelected.value == true) return
+        tabTwoSelected.value = true
+        tabOneSelected.value = false
+        tabThreeSelected.value = false
+        tabSettingSelected.value = false
+        navigator.goTo(Destination.Notification)
+    }
+
+    fun tabThreeClick() {
+        if (tabThreeSelected.value == true) return
+        tabThreeSelected.value = true
+        tabOneSelected.value = false
+        tabTwoSelected.value = false
+        tabSettingSelected.value = false
+        // navigator.goTo(Destination.)
+    }
+
+    fun settingsClick() {
+        if (tabSettingSelected.value == true) return
+        tabSettingSelected.postValue(true)
+        tabTwoSelected.value = false
+        tabOneSelected.value = false
+        tabThreeSelected.value = false
+        navigator.goTo(Destination.Setting)
+    }
+
+    companion object {
+        private const val TARGET_DESTINATION = "targetDestination"
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/notification/NotificationFragment.kt
+================
+package com.ltthuc.feature.presentation.page.notification
+
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.ltthuc.ads.AdsManager
+import com.ltthuc.ads.AdsSettings
+import com.ltthuc.ads.BannerAd
+import com.ltthuc.ads.BannerType
+import com.ltthuc.feature.R
+import com.ltthuc.feature.databinding.FragmentNotiBinding
+import com.ltthuc.feature.presentation.adapter.NotificationsAdapter
+import com.ltthuc.ui.adapter.section.CustomItemDecoration
+
+import com.ltthuc.ui.base.BaseFragment
+import com.ltthuc.ui.base.toolbar.IToolbar
+import com.ltthuc.ui.base.toolbar.ToolbarManager
+import com.ltthuc.ui.extension.transparentStatusBar
+import com.ltthuc.utils.ISecretAdsKey
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@AndroidEntryPoint
+class NotificationFragment :
+    BaseFragment<FragmentNotiBinding, NotificationViewModel>(FragmentNotiBinding::inflate) {
+    private val viewModel: NotificationViewModel by viewModels()
+    override fun getVM(): NotificationViewModel = viewModel
+    private var adapter: NotificationsAdapter? = null
+
+    @Inject
+    lateinit var iSecretAdsKey: ISecretAdsKey
+    @Inject
+    lateinit var adsManager: AdsManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        showBottomBar(false)
+    }
+
+    override fun bindVM(binding: FragmentNotiBinding, vm: NotificationViewModel) {
+        adapter = NotificationsAdapter( onViewClicked = { position, item -> }
+        )
+
+        setUpAdapter(adapter, binding.recyclerView, CustomItemDecoration(requireContext(), false))
+
+        viewModel.notifications.observe(viewLifecycleOwner) {
+            adapter?.swapItems(it)
+        }
+    }
+
+    override fun setUpToolbar() {
+        super.setUpToolbar()
+        showBottomBar(true)
+        val config = ToolbarManager.ToolbarConfig(
+            title = "Notifications",
+            titleSize = 20f,
+            navigationIcon = com.ltthuc.ui.R.drawable.baseline_arrow_back_ios_24,
+            menuRes = R.menu.home_menu,
+            onMenuItemClick = { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_profile -> {
+
+                        true
+                    }
+                    else -> false
+                }
+            }
+        )
+
+        (requireActivity() as IToolbar).getToolbar().configureToolbar(config)
+
+        setUpAds(iSecretAdsKey, BannerType.COLLAPSIBLE_BOTTOM, adsManager)
+    }
+
+    override fun rightClickToolbar() {
+        super.rightClickToolbar()
+    }
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/notification/NotificationViewModel.kt
+================
+package com.ltthuc.feature.presentation.page.notification
+
+
+import android.content.Context
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+
+import com.ltthuc.billing.helper.BillingManager
+
+import com.ltthuc.feature.domain.entity.NotificationModel
+import com.ltthuc.feature.domain.repository.ApiService
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.ui.base.BaseViewModel
+
+import com.ltthuc.utils.CommonUtils
+import com.ltthuc.utils.DeviceUtils
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class NotificationViewModel @Inject constructor(
+    @ApplicationContext val context: Context,
+    private val apiService: ApiService,
+    val navigator: Navigator,
+) :
+    BaseViewModel() {
+    @Inject
+    lateinit var billingManager: BillingManager
+
+    val notifications = MutableLiveData<List<NotificationModel>>()
+
+    private val sharedPrefs by lazy { context.getSharedPreferences("app_prefs", Context.MODE_PRIVATE) }
+
+    init {
+        getNotifications()
+    }
+
+    private fun getNotifications() {
+        progressLiveEvent.value = true
+        viewModelScope.launch(handlerException) {
+
+           notifications.value = apiService.getNotifications(getCountryCode(context = context))
+            progressLiveEvent.postValue(false)
+        }
+    }
+
+
+
+
+    override fun onCleared() {
+        super.onCleared()
+        billingManager.close()
+    }
+
+
+
+   private fun getCountryCode(context: Context): String {
+           return CommonUtils.getCountryCode(context)
+    }
+
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/settings/SettingsFragment.kt
+================
+package com.ltthuc.feature.presentation.page.settings
+
+import android.content.res.Configuration
+import android.graphics.Color
+import android.os.Build
+import android.os.Bundle
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import com.ltthuc.ads.AdsManager
+import com.ltthuc.feature.R
+import com.ltthuc.feature.databinding.FragmentSettingsBinding
+import com.ltthuc.ui.base.BaseFragment
+import com.ltthuc.ui.base.settings.CommonSettingFragment
+import com.ltthuc.ui.base.toolbar.IToolbar
+import com.ltthuc.ui.base.toolbar.ToolbarItem
+import com.ltthuc.ui.base.toolbar.ToolbarManager
+import com.ltthuc.ui.base.toolbar.ToolbarViewModel
+import com.ltthuc.ui.extension.addFragment
+import com.ltthuc.ui.extension.alertDialog
+import com.ltthuc.ui.extension.removeFragment
+import com.ltthuc.ui.extension.showToast
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+import kotlin.math.log
+
+@AndroidEntryPoint
+internal class SettingsFragment :
+    BaseFragment<FragmentSettingsBinding, SettingViewModel>(FragmentSettingsBinding::inflate) {
+    private val viewModel: SettingViewModel by viewModels()
+    override fun getVM(): SettingViewModel = viewModel
+    @Inject
+    lateinit var adsManager: AdsManager
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.isDarkMode.value =
+            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES;
+    }
+
+    override fun bindVM(binding: FragmentSettingsBinding, vm: SettingViewModel) {
+        binding.viewModel = viewModel
+        showBottomBar(true)
+        showActivityBannerAds(false)
+        childFragmentManager.addFragment(R.id.linSetting, CommonSettingFragment.newInstance(true))
+    }
+
+    override fun setUpToolbar() {
+        super.setUpToolbar()
+        val config = ToolbarManager.ToolbarConfig(
+            title = "Setting3",
+            titleSize = 20f,
+            menuRes = R.menu.home_menu,
+            onMenuItemClick = { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.action_profile -> {
+
+                        true
+                    }
+                    else -> false
+                }
+            }
+        )
+
+        (requireActivity() as IToolbar).getToolbar().configureToolbar(config)
+        viewLifecycleOwner.lifecycleScope.launch {
+            adsManager.showAds(binding.bannerAdView)
+        }
+
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        viewModel.isDarkMode.value =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                resources.configuration.isNightModeActive
+            } else {
+                newConfig.uiMode and
+                        Configuration.UI_MODE_NIGHT_MASK ==
+                        Configuration.UI_MODE_NIGHT_YES
+            }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun rightClickToolbar() {
+        super.rightClickToolbar()
+        showToast("setting")
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        removeFragments()
+    }
+
+    private fun removeFragments() {
+        childFragmentManager.removeFragment(CommonSettingFragment::class)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        requireActivity().alertDialog {  }
+        //adsManager.removeAd()
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/settings/SettingsViewModel.kt
+================
+package com.ltthuc.feature.presentation.page.settings
+
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.ui.base.BaseViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+
+@HiltViewModel
+internal class SettingViewModel @Inject constructor(
+     private val navigator: Navigator
+) : BaseViewModel() {
+
+    fun onBackClick() {
+        navigator.back()
+
+    }
+
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/splash/SplashFragment.kt
+================
+package com.ltthuc.feature.presentation.page.splash
+
+
+import android.os.Bundle
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
+import com.ltthuc.ads.AdsSettings
+// import com.ltthuc.ads.AppOpen
+import com.ltthuc.ads.AppOpenAdsManager
+import com.ltthuc.ads.GoogleMobileAdsConsentManager
+
+import com.ltthuc.feature.databinding.FragmentSplashBinding
+
+import com.ltthuc.ui.base.BaseFragment
+import com.ltthuc.ui.helper.rate.RateViewModel
+
+
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+
+@AndroidEntryPoint
+internal class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(FragmentSplashBinding::inflate) {
+    private val viewModel: SplashViewModel by viewModels()
+
+    @Inject
+    lateinit var googleMobileAdsConsentManager: GoogleMobileAdsConsentManager
+    @Inject
+    lateinit var appOpenAdsManager: AppOpenAdsManager
+
+    val rateHelper: RateViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        rateHelper.increaseCount()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        AdsSettings.isSplashScreen = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        AdsSettings.isSplashScreen = false
+    }
+
+//    override fun restoreAds() {
+//
+//    }
+//
+//    override fun closeAds() {
+//
+//    }
+
+    override fun getVM(): SplashViewModel = viewModel
+
+
+    override fun bindVM(binding: FragmentSplashBinding, vm: SplashViewModel)  = Unit
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/presentation/page/splash/SplashViewModel.kt
+================
+package com.ltthuc.feature.presentation.page.splash
+
+import androidx.lifecycle.viewModelScope
+import com.ltthuc.ui.base.BaseViewModel
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.api.model.Destination
+import com.ltthuc.preferences.api.DatastoreRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+@HiltViewModel
+internal class SplashViewModel @Inject constructor(
+    private val navigator: Navigator,
+    datastoreRepository: DatastoreRepository
+) : BaseViewModel() {
+
+
+    init {
+        viewModelScope.launch(Dispatchers.Main) {
+            navigator.goTo(Destination.Home)
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/utils/FeatureConstants.kt
+================
+package com.ltthuc.feature.utils
+
+object FeatureConstants {
+    const val KEY_SHOW_BOTTOM_BAR = "SHOW_BOTTOM_BAR"
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/utils/TimeUtils.kt
+================
+package com.ltthuc.feature.utils
+
+import com.ltthuc.ui.utils.TimeUtils
+import java.text.SimpleDateFormat
+import java.util.TimeZone
+
+object TimeUtils {
+    fun formatTime(timeStamp: String, format: String): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+        val date = dateFormat.parse(timeStamp)
+        val timeFormat = SimpleDateFormat(format)
+
+        return timeFormat.format(date)
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/navigation/api/model/Destination.kt
+================
+package com.ltthuc.navigation.api.model
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+sealed class Destination : Parcelable {
+
+    @Parcelize
+    object Back : Destination()
+
+    @Parcelize
+    object Home : Destination()
+
+    @Parcelize
+    object Notification : Destination()
+
+
+    @Parcelize
+    object Setting : Destination()
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/navigation/api/Navigator.kt
+================
+package com.ltthuc.navigation.api
+
+
+import com.ltthuc.navigation.api.model.Destination
+import kotlinx.coroutines.flow.SharedFlow
+
+interface Navigator{
+
+    val destination: SharedFlow<Destination>
+    val currentDestination: Destination?
+
+    fun back()
+    fun goTo(destination: Destination)
+}
+
+================
+File: feature/src/main/java/com/ltthuc/navigation/impl/di/NavigationModule.kt
+================
+package com.ltthuc.navigation.impl.di
+
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.impl.DefaultNavigator
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal interface NavigationModule {
+
+    @Singleton
+    @Binds
+    fun provideNavigator(navigator: DefaultNavigator): Navigator
+}
+
+================
+File: feature/src/main/java/com/ltthuc/navigation/impl/DefaultNavigator.kt
+================
+package com.ltthuc.navigation.impl
+
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.api.model.Destination
+import kotlinx.coroutines.flow.MutableSharedFlow
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+internal class DefaultNavigator @Inject constructor() : Navigator {
+
+    override val destination: MutableSharedFlow<Destination> = MutableSharedFlow(1)
+    override val currentDestination: Destination?
+        get() = destination.replayCache.firstOrNull()
+
+    override fun back() {
+        destination.tryEmit(Destination.Back)
+    }
+
+    override fun goTo(destination: Destination) {
+        this.destination.tryEmit(destination)
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/network/di/NetworkModule.kt
+================
+package com.ltthuc.network.di
+
+import android.content.Context
+import com.ltthuc.network.helper.ExceptionCallAdapterFactory
+import com.ltthuc.network.helper.NetworkConnectionInterceptor
+import com.ltthuc.utils.ISecretNetworkKey
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
+
+
+    @Provides
+    @Singleton
+    @Named("VnMobile")
+    fun provideVnMobileRetrofit(client: OkHttpClient, secretKey: ISecretNetworkKey): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(secretKey.getServiceUrl())
+            .client(client)
+            .addCallAdapterFactory(ExceptionCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+    @Provides
+    @Singleton
+    @Named("External")
+    fun provideExternalRetrofit(client: OkHttpClient, secretKey: ISecretNetworkKey): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(secretKey.getExternalServiceUrl())
+            .client(client)
+            .addCallAdapterFactory(ExceptionCallAdapterFactory())
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
+        OkHttpClient.Builder()
+            .connectTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            .addInterceptor(
+                HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.BODY)
+            )
+            .addInterceptor(NetworkConnectionInterceptor(context))
+            .build()
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/network/helper/ExceptionCallAdapterFactory.kt
+================
+package com.ltthuc.network.helper
+
+import com.ltthuc.utils.AppException
+import okhttp3.Request
+import okio.Timeout
+import retrofit2.*
+import java.io.IOException
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
+import java.net.SocketTimeoutException
+
+class ExceptionCallAdapterFactory : CallAdapter.Factory() {
+
+    override fun get(
+        returnType: Type,
+        annotations: Array<out Annotation>,
+        retrofit: Retrofit
+    ): CallAdapter<*, *>? {
+
+        if (Call::class.java != getRawType(returnType)) {
+            return null
+        }
+
+        check(returnType is ParameterizedType) {
+            "return type must be parameterized as Call<<Foo> or Call<out Foo>"
+        }
+
+        val responseType = getParameterUpperBound(0, returnType)
+
+        return ResponseCallAdapter<Any>(responseType)
+    }
+
+    private class ResponseCallAdapter<T>(
+        private val responseType: Type
+    ) : CallAdapter<T, Call<T>> {
+
+        override fun responseType(): Type = responseType
+
+        override fun adapt(call: Call<T>): Call<T> = ResponseCall(call)
+    }
+
+    private class ResponseCall<T>(
+        private val delegate: Call<T>,
+    ) : Call<T> {
+        override fun enqueue(callback: Callback<T>) {
+            delegate.enqueue(object : Callback<T> {
+                override fun onResponse(call: Call<T>, response: Response<T>) {
+                    if (response.isSuccessful) {
+                        callback.onResponse(this@ResponseCall, response)
+                    } else {
+                        val exception = AppException.ApiException(
+                            code = response.code(),
+                            message = response.message()
+                        )
+                        callback.onFailure(this@ResponseCall, exception)
+                    }
+                }
+
+                override fun onFailure(call: Call<T>, throwable: Throwable) {
+                    val exception = when (throwable) {
+                        is SocketTimeoutException -> AppException.TimeoutException
+                        is IOException -> AppException.NetworkException
+                        else -> throwable
+                    }
+                    callback.onFailure(this@ResponseCall, exception)
+                }
+            })
+        }
+
+        override fun clone(): Call<T> = delegate.clone()
+
+        override fun execute(): Response<T> = delegate.execute()
+
+        override fun isExecuted(): Boolean = delegate.isExecuted
+
+        override fun cancel() = delegate.cancel()
+
+        override fun isCanceled(): Boolean = delegate.isCanceled
+
+        override fun request(): Request = delegate.request()
+
+        override fun timeout(): Timeout = delegate.timeout()
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/network/helper/NetworkConnectionInterceptor.kt
+================
+package com.ltthuc.network.helper
+
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
+import com.ltthuc.utils.AppException
+import okhttp3.Interceptor
+import okhttp3.Request
+import okhttp3.Response
+import java.io.IOException
+
+class NetworkConnectionInterceptor(context: Context) : Interceptor {
+    private val mContext: Context = context
+
+    @Throws(IOException::class)
+    override fun intercept(chain: Interceptor.Chain): Response {
+
+//        if (!isNetworkAvailable(mContext))
+//            throw AppException.NetworkException
+        val builder: Request.Builder = chain.request().newBuilder()
+        return chain.proceed(builder.build())
+    }
+
+
+
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val nw      = connectivityManager.activeNetwork ?: return false
+            val actNw = connectivityManager.getNetworkCapabilities(nw) ?: return false
+            return when {
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                //for other device how are able to connect with Ethernet
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                //for check internet over Bluetooth
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> true
+                else -> false
+            }
+        } else {
+            val nwInfo = connectivityManager.activeNetworkInfo ?: return false
+            return nwInfo.isConnected
+        }
+    }
+    }
+
+================
+File: feature/src/main/java/com/ltthuc/network/paging/datasource/BasePagingSource.kt
+================
+package com.ltthuc.network.paging.datasource
+
+import androidx.paging.PagingSource
+import androidx.paging.PagingState
+import com.ltthuc.network.response.PagedResponse
+import retrofit2.Response
+
+abstract class BasePagingSource<Item : Any> : PagingSource<Int, Item>() {
+
+    override fun getRefreshKey(state: PagingState<Int, Item>): Int? {
+        return state.anchorPosition
+    }
+
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Item> {
+        val pageNumber = params.key ?: 1
+        return try {
+            val response = getApiService(getParams(params))
+            val pagedResponse = response.body()
+            val data = pagedResponse?.results
+
+            var nextPageNumber: Int? = null
+            if (pageNumber!= pagedResponse?.totalPages) {
+
+                nextPageNumber = pageNumber + 1
+            }
+
+            LoadResult.Page(
+                data = data.orEmpty(),
+                prevKey = null,
+                nextKey = nextPageNumber
+            )
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
+    }
+
+
+    open fun getFirstPage(): Int = 1
+
+    abstract suspend fun getApiService( hashMap: HashMap<String, String> = HashMap()): Response<PagedResponse<Item>>
+    abstract fun getParams(params: LoadParams<Int>):HashMap<String,String>
+
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/network/response/PagedResponse.kt
+================
+package com.ltthuc.network.response
+
+import com.google.gson.annotations.SerializedName
+
+data class PagedResponse<T>(
+    @SerializedName("page") val page: Int,
+    @SerializedName("total_pages") val totalPages: Int,
+    @SerializedName("data")
+    val results: List<T> = listOf()
+)
+
+data class PageInfo(
+    val count: Int,
+    val pages: Int,
+    val next: String?,
+    val prev: String?
+)
+
+================
+File: feature/src/main/java/com/ltthuc/network/response/ResponseData.kt
+================
+package com.ltthuc.network.response
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/section/CustomItemDecoration.kt
+================
+package com.ltthuc.ui.adapter.section
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+
+class CustomItemDecoration(
+    context: Context,
+    private val isShowLastDivider: Boolean = false,
+    private val isShowFirstDivider: Boolean = true,
+    private val isShowTopDivider: Boolean = false,
+) : RecyclerView.ItemDecoration() {
+
+    private val ATTRS = intArrayOf(android.R.attr.listDivider)
+    private var mDivider: Drawable? = null
+
+    init {
+        val a = context.obtainStyledAttributes(ATTRS)
+        mDivider = a.getDrawable(0)
+        a.recycle()
+    }
+
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        val left = 0
+        val right = parent.width
+
+        for (i in 0 until parent.childCount) {
+            val child: View = parent.getChildAt(i)
+            val position = parent.getChildLayoutPosition(child)
+
+            val params = child.layoutParams as RecyclerView.LayoutParams
+
+            val top: Int = child.bottom + params.bottomMargin
+            val bottom: Int = top + (mDivider?.intrinsicHeight ?: 0)
+
+            if (position != state.itemCount - 1 || isShowLastDivider ) {
+                mDivider?.setBounds(left, top, right, bottom)
+                mDivider?.draw(c)
+            }
+
+            if (position == 0 && isShowTopDivider) {
+                val bottomFirst = child.top - params.topMargin
+                val topFirst = bottomFirst - (mDivider?.intrinsicHeight ?: 0)
+                mDivider?.setBounds(left, topFirst, right, bottomFirst)
+                mDivider?.draw(c)
+            }
+
+
+        }
+    }
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State,
+    ) {
+        val position = parent.getChildLayoutPosition(view)
+
+        // hide the divider for the last child
+        if (!isShowLastDivider && position == state.itemCount - 1) {
+            outRect.setEmpty()
+        } else if (!isShowFirstDivider && position == 0) {
+            outRect.setEmpty()
+        } else if (isShowFirstDivider && isShowTopDivider && position == 0) {
+            val height = mDivider?.intrinsicHeight ?: 0
+            outRect.top = height
+            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
+
+        } else {
+            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
+            // super.getItemOffsets(outRect, view, parent, state)
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/section/SectionHeaderDecoration.kt
+================
+package com.ltthuc.ui.adapter.section
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.text.Layout.Alignment.ALIGN_CENTER
+import android.text.StaticLayout
+import android.text.TextPaint
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.getColorOrThrow
+import androidx.core.content.res.getDimensionOrThrow
+import androidx.core.content.res.getDimensionPixelSizeOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.graphics.withTranslation
+import androidx.core.view.forEach
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.State
+import com.ltthuc.ui.R
+import com.ltthuc.ui.extension.newStaticLayout
+import kotlin.math.ceil
+
+/**
+ * A [RecyclerView.ItemDecoration] which draws sticky headers marking the header title in a given list of
+ * [Block]s. It also inserts gaps between days.
+ */
+class SectionHeadersDecoration(
+    val context: Context,
+    style: Int,
+) : ItemDecoration() {
+
+    private val paint: TextPaint
+    private val textWidth: Int
+    private val decorHeight: Int
+    private val verticalBias: Float
+    private val divider: Drawable
+    init {
+        val attrs = context.obtainStyledAttributes(
+            style,
+            R.styleable.SectionHeader
+        )
+        paint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG).apply {
+            color = attrs.getColorOrThrow(R.styleable.SectionHeader_android_textColor)
+            textSize = attrs.getDimensionOrThrow(R.styleable.SectionHeader_android_textSize)
+            divider = attrs.getDrawable(R.styleable.SectionHeader_android_drawable)?: getDefaultDivider(context)!!
+
+
+            try {
+                typeface = ResourcesCompat.getFont(
+                    context,
+                    attrs.getResourceIdOrThrow(R.styleable.SectionHeader_android_fontFamily)
+                )
+            } catch (_: Exception) {
+                // ignore
+            }
+        }
+
+        paint.bgColor = ContextCompat.getColor(context, R.color.color_orange)
+
+        textWidth = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_width)
+        val height = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_height)
+        val minHeight = ceil(paint.textSize).toInt()
+        decorHeight = Math.max(height, minHeight)
+
+        verticalBias = attrs.getFloat(R.styleable.SectionHeader_verticalBias, 0.5f).coerceIn(0f, 1f)
+
+        attrs.recycle()
+    }
+
+    // Get the header index and create header layouts for each
+    private var _headerSlots: Map<Int, StaticLayout>  = emptyMap()
+
+    fun setHeaderSlot(slot: Map<Int, StaticLayout>) {
+        this._headerSlots = slot
+    }
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
+        val position = parent.getChildAdapterPosition(view)
+        outRect.top = if (_headerSlots.containsKey(position)) decorHeight else 0
+    }
+
+    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: State) {
+        val layoutManager = parent.layoutManager ?: return
+        val centerX = parent.width / 2f
+        val dividerLeft: Int = 32
+
+        // right margin for the divider with
+        // reference to the parent width
+        val dividerRight: Int = parent.width - 32
+        parent.forEach { child ->
+            if (child.top < parent.height && child.bottom > 0) {
+                // Child is visible
+                val layout = _headerSlots[parent.getChildAdapterPosition(child)]
+                if (layout != null) {
+                    val dx = centerX - (layout.width / 2)
+                    val dy = layoutManager.getDecoratedTop(child) +
+                            child.translationY +
+                            // offset vertically within the space according to the bias
+                            (decorHeight - layout.height) * verticalBias
+                    canvas.withTranslation(x = 0f + dividerLeft, y = dy) {
+                        layout.draw(this)
+                    }
+
+
+                    val params = child.layoutParams as RecyclerView.LayoutParams
+
+
+                    val firstDividerTop: Int = child.top+ params.topMargin
+                    val firstDividerBottom: Int = firstDividerTop + divider.intrinsicHeight
+                    divider.setBounds(dividerLeft,  firstDividerTop, dividerRight, firstDividerBottom)
+                    divider.draw(canvas)
+
+                    val dividerTop: Int = child.bottom + params.bottomMargin
+                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
+                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                    divider.draw(canvas)
+
+                } else {
+                    val params = child.layoutParams as RecyclerView.LayoutParams
+
+                    // calculating the distance of the
+                    // divider to be drawn from the top
+                    val dividerTop: Int = child.bottom + params.bottomMargin
+                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
+
+                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                    divider.draw(canvas)
+                }
+            }
+        }
+    }
+
+    /**
+     * Create a header layout for the given [time]
+     */
+    fun createHeader(
+        title: String,
+    ): StaticLayout {
+        return newStaticLayout(title, paint, textWidth, ALIGN_CENTER, 1f, 0f, false)
+    }
+
+    private fun getDefaultDivider(context: Context): Drawable? {
+        val attrsDivider = intArrayOf(android.R.attr.listDivider)
+        val styledAttributes = context.obtainStyledAttributes(attrsDivider)
+        val divider = styledAttributes.getDrawable(0)
+        styledAttributes.recycle()
+        return divider
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/AdapterRowData.kt
+================
+package com.ltthuc.ui.adapter
+
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.os.Parcelable
+import androidx.appcompat.content.res.AppCompatResources
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+class MoreAppRowData (val icon: Int, val appName: String, val packageName: String): Parcelable {
+    fun getAppIcon(context: Context): Drawable? {
+        return AppCompatResources.getDrawable(context, icon)
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/BaseAdapter.kt
+================
+package com.ltthuc.ui.adapter
+
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.ltthuc.ui.BR
+
+
+
+/**
+ * An abstract Adapter that extends [RecyclerView.Adapter] and can be used as base adapter in layouts provided by
+ * DataBinding.
+ *
+ * @param itemBindingId Generated item binding id that will should be founded in BR class and will be
+ * used in [MvvmViewHolder.bind] method.
+ *
+ * @param items list of items to be shown. Can be changed later by calling [swapItems].
+ *
+ * @param onBind an extension function on [B] that receives position of current item and allows us
+ * to access binding class outside of [BaseAdapter].
+ *
+ */
+abstract class BaseAdapter<T : Any, B : ViewDataBinding>(
+    private val itemBindingId: Int = BR.item,
+    items: List<T> = emptyList(),
+    private val onItemClicked: ((Int, (T)) -> Unit)? = null,
+    private val onViewClicked: ((Int, (T), String) -> Unit)? = null,
+    private val onBind: B.(Int) -> Unit = {},
+    private val viewClickTag: List<String>? = null,
+    private val onStartDragListener: OnStartDragListener? = null
+) : RecyclerView.Adapter<BaseViewHolder<T, B>>() {
+    private val items = mutableListOf<T>().apply {
+        addAll(items)
+    }
+
+    /**
+     * get item at given position
+     */
+    fun getItem(position: Int): T = items[position]
+
+    open fun updateItem(position: Int, newItem: T) {
+        items[position] = newItem
+        notifyItemChanged(position)
+    }
+
+    // Function to delete an item
+    fun deleteItem(position: Int) {
+        items.removeAt(position)
+        notifyItemRemoved(position) // Notify adapter of item removal
+        notifyItemRangeChanged(position, items.size) // Optional
+    }
+
+    override fun getItemCount(): Int = items.size
+
+    /**
+     * abstract function to decide which layout should be shown at given position.
+     * This will be useful for multi layout adapters. for single layout adapter it can only returns
+     * a static layout resource id.
+     *
+     * @return relevant layout resource id based on given position
+     *
+     */
+    abstract fun getLayoutId(position: Int): Int
+
+    /**
+     * Instead of returning viewType, this method will return layout id at given position provided
+     * by [getLayoutId] and will be used in [onCreateViewHolder].
+     *
+     * @see [RecyclerView.Adapter.getItemViewType]
+     */
+    override fun getItemViewType(position: Int): Int {
+        return getLayoutId(position)
+    }
+
+    /**
+     * Attempt to create an instance of [BaseViewHolder] with inflated Binding class
+     *
+     * @param viewType will be used as layoutId for [DataBindingUtil] and will be provided by [getItemViewType]
+     *
+     * @see [RecyclerView.Adapter.onCreateViewHolder]
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): com.ltthuc.ui.adapter.BaseViewHolder<T, B> {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: B = DataBindingUtil.inflate(inflater, viewType, parent, false)
+        return BaseViewHolder(binding, onItemClicked, viewClickTag, onViewClicked, onStartDragListener)
+    }
+
+    /**
+     * Attempt to bind item at given position to holder.
+     * And also attempts to invoke [onBind] lambda
+     * function on instance of [B] in [BaseViewHolder.binding].
+     *
+     * @see [RecyclerView.Adapter.onBindViewHolder]
+     */
+    override fun onBindViewHolder(holder: com.ltthuc.ui.adapter.BaseViewHolder<T, B>, position: Int) {
+        holder.bind(itemBindingId, getItem(position))
+        holder.binding.onBind(position)
+    }
+
+    /**
+     * Attempts to replace current list of items with newly provided items and notify adapter
+     * based on differences of these two lists by [DiffUtil]
+     */
+    open fun swapItems(newItems: List<T>) {
+        val diffResult = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                areItemsTheSame(oldItemPosition, newItemPosition, newItems)
+
+            override fun getOldListSize(): Int =
+                items.size
+
+            override fun getNewListSize(): Int =
+                newItems.size
+
+            override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
+                areContentsTheSame(oldItemPosition, newItemPosition, newItems)
+        })
+        diffResult.dispatchUpdatesTo(this)
+        items.clear()
+        items.addAll(newItems)
+    }
+
+    open fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int, newItems: List<T>): Boolean =
+        items[oldItemPosition].toString() == newItems[newItemPosition].toString()
+
+    open fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int, newItems: List<T>): Boolean = true
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/BasePagingAdapter.kt
+================
+package com.ltthuc.ui.adapter
+
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
+import com.ltthuc.ui.BR
+import com.ltthuc.ui.R
+import com.ltthuc.ui.utils.paging.ItemComparable
+import com.ltthuc.utils.paging.ItemSeperator
+
+
+abstract class BasePagingAdapter<T : ItemComparable, B : ViewDataBinding>(
+    private var itemBindingId: Int = BR.item,
+    var onBind: B.(Int) -> Unit = {},
+    private val onItemClicked: ((Int, (T)) -> Unit)? = null
+
+) :
+    PagingDataAdapter<T, BaseViewHolder<T, B>>(PagingComparator()) {
+
+
+    /**
+     * get item at given position
+     */
+
+
+    /**
+     * abstract function to decide which layout should be shown at given position.
+     * This will be useful for multi layout adapters. for single layout adapter it can only returns
+     * a static layout resource id.
+     *
+     * @return relevant layout resource id based on given position
+     *
+     */
+    abstract fun getLayoutId(position: Int): Int
+
+    /**
+     * Instead of returning viewType, this method will return layout id at given position provided
+     * by [getLayoutId] and will be used in [onCreateViewHolder].
+     *
+     * @see [RecyclerView.Adapter.getItemViewType]
+     */
+    override fun getItemViewType(position: Int): Int {
+        return if (getItem(position) is ItemSeperator) TYPE_SEPARATOR
+        else getLayoutId(position)
+    }
+    override fun onBindViewHolder(holder: BaseViewHolder<T, B>, position: Int) {
+        getItem(position)?.let { holder.bind(itemBindingId, it as T) }
+        holder.binding.onBind(position)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T, B> {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding: B = DataBindingUtil.inflate(inflater, viewType, parent, false)
+        return BaseViewHolder(binding, onItemClicked)
+    }
+
+
+
+    @SuppressLint("DiffUtilEquals")
+   private class PagingComparator<T> : DiffUtil.ItemCallback<T>() {
+
+        override fun areItemsTheSame(oldItem: T & Any, newItem: T & Any): Boolean =
+            oldItem == newItem
+
+
+        override fun areContentsTheSame(oldItem: T & Any, newItem: T & Any): Boolean =
+            oldItem.toString() == newItem.toString()
+
+    }
+
+
+    companion object {
+        private const val TYPE_PAGING_MODEL = 0
+        private  val TYPE_SEPARATOR = R.layout.item_paging_separator
+
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/BaseViewHolder.kt
+================
+package com.ltthuc.ui.adapter
+
+import android.view.MotionEvent
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import androidx.core.view.MotionEventCompat
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
+
+
+/**
+ * A wrapper for [RecyclerView.ViewHolder] in order to use in [MvvmAdapter]
+ * @param T type of data model that will be set in Binding class
+ * @param B A [ViewDataBinding] extended class that representing Binding for item layout
+ *
+ * @param binding an instance of [B] to get root view for [RecyclerView.ViewHolder] constructor and
+ * display data model
+ */
+open class BaseViewHolder<in T : Any, out B : ViewDataBinding>(
+    open val binding: B,
+    onItemClicked: ((Int, (T)) -> Unit)? = null,
+    viewClickedTag: List<String>? = null,
+    private val onViewClicked: ((Int, (T), String) -> Unit)? = null,
+    onStartDragListener: OnStartDragListener? = null
+) : RecyclerView.ViewHolder(binding.root) {
+    private lateinit var item: T
+    private var currentSelectedItem = -1
+
+    init {
+        if (!viewClickedTag.isNullOrEmpty()) {
+            viewClickedTag?.forEach { tag ->
+                val view: View = itemView.findViewWithTag(tag)
+                if (tag == "drag") {
+                    view.setOnTouchListener { v, event ->
+                        if (MotionEventCompat.getActionMasked(event) == MotionEvent.ACTION_DOWN) {
+                            onStartDragListener?.onStartDrag(this)
+
+                        }
+                        return@setOnTouchListener false
+                    }
+
+                } else {
+                    view.setOnClickListener {
+                        onViewClicked?.invoke(bindingAdapterPosition, item, tag)
+                    }
+                }
+
+            }
+        } else {
+            itemView.setOnClickListener {
+                itemView.isSelected = true
+                onItemClicked?.invoke(bindingAdapterPosition, item)
+            }
+
+        }
+    }
+
+    fun getItemData(): @UnsafeVariance T {
+        return item
+    }
+
+
+    /**
+     * binding method that bind data model to [ViewDataBinding] class
+     *
+     * @param itemBindingId Generated item binding id that will should be founded in BR class.
+     * @param item an instance of [T] to be shown in layout
+     */
+    open fun bind(itemBindingId: Int, item: T) {
+        this.item = item
+        binding.setVariable(itemBindingId, item)
+        binding.executePendingBindings()
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/OnStartDragListener.kt
+================
+package com.ltthuc.ui.adapter
+
+import androidx.recyclerview.widget.RecyclerView
+
+
+
+interface OnStartDragListener {
+    fun onStartDrag(viewHolder: RecyclerView.ViewHolder?)
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/PagingLoadStateAdapter.kt
+================
+package com.ltthuc.ui.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.paging.LoadState
+import androidx.paging.LoadStateAdapter
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.ltthuc.ui.R
+import com.ltthuc.ui.databinding.ItemNetworkStateBinding
+
+
+class PagingLoadStateAdapter<T : Any, VH : RecyclerView.ViewHolder>(
+    private val adapter: PagingDataAdapter<T, VH>
+) : LoadStateAdapter<PagingLoadStateAdapter.NetworkStateItemViewHolder>() {
+
+    override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
+        NetworkStateItemViewHolder(
+            ItemNetworkStateBinding.bind(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_network_state, parent, false)
+            )
+        ) { adapter.retry() }
+
+    override fun onBindViewHolder(holder: NetworkStateItemViewHolder, loadState: LoadState) =
+        holder.bind(loadState)
+
+    class NetworkStateItemViewHolder(
+        private val binding: ItemNetworkStateBinding,
+        private val retryCallback: () -> Unit
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.retryButton.setOnClickListener { retryCallback() }
+        }
+
+        fun bind(loadState: LoadState) {
+            with(binding) {
+                progressBar.isVisible = loadState is LoadState.Loading
+                retryButton.isVisible = loadState is LoadState.Error
+                errorMsg.isVisible =
+                    !(loadState as? LoadState.Error)?.error?.message.isNullOrBlank()
+                errorMsg.text = (loadState as? LoadState.Error)?.error?.message
+            }
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/SingleLayoutAdapter.kt
+================
+package com.ltthuc.ui.adapter
+
+
+import androidx.databinding.ViewDataBinding
+
+/**
+ * Simplest implementation of [BaseAdapter] to use as initView single layout adapter.
+ */
+open class SingleLayoutAdapter<T : Any, B : ViewDataBinding>(
+    private val layoutId: Int,
+    items: List<T> = emptyList(),
+    onItemClicked: ((Int, (T)) -> Unit)? = null,
+    onBind: B.(Int) -> Unit = {},
+    viewClickedTag: List<String>? = null,
+    onViewClicked: ((Int, (T), String) -> Unit)? = null,
+    onStartDragListener: OnStartDragListener? = null
+) : BaseAdapter<T, B>(items = items, onItemClicked = onItemClicked, onBind = onBind, viewClickTag = viewClickedTag, onViewClicked = onViewClicked, onStartDragListener = onStartDragListener) {
+
+    override fun getLayoutId(position: Int): Int = layoutId
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/SingleLayoutPagingAdapter.kt
+================
+package com.ltthuc.ui.adapter
+
+import androidx.databinding.ViewDataBinding
+import com.ltthuc.ui.utils.paging.ItemComparable
+
+open class SingleLayoutPagingAdapter<T : ItemComparable, B : ViewDataBinding>(
+    private val layoutId: Int,
+    onItemClicked: ((Int, (T)) -> Unit)? = null,
+    onBind: B.(Int) -> Unit = {}
+) : BasePagingAdapter<T, B>(onItemClicked = onItemClicked, onBind = onBind) {
+
+    override fun getLayoutId(position: Int): Int = layoutId
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/toolbar/IToolbar.kt
+================
+package com.ltthuc.ui.base.toolbar
+
+interface IToolbar {
+    fun getToolbar(): ToolbarManager
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/toolbar/ToolbarManager.kt
+================
+package com.ltthuc.ui.base.toolbar
+
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
+import com.ltthuc.ui.R
+
+class ToolbarManager(private val activity: AppCompatActivity) {
+    private var toolbar: Toolbar? = null
+
+    // Base configuration for toolbar
+    data class ToolbarConfig(
+        val title: String? = null,
+        val titleColorResId: Int? = null, // Now using resource ID instead of direct color
+        val titleSize: Float = 18f,
+        val isTitleCentered: Boolean = true,  // Default to centered
+        val backgroundColorResId: Int? = null, // Now using resource ID
+        val navigationIcon: Int? = null,
+        val navigationIconTintResId: Int? = R.color.default_text_color, // Now using resource ID
+        val menuRes: Int? = null,
+        val menuIconTintResId: Int? = null, // Now using resource ID
+        val elevation: Float? = null,
+        val onNavigationClick: (() -> Unit)? = null,
+        val onMenuItemClick: ((MenuItem) -> Boolean)? = null
+    )
+
+    // Visibility methods
+    fun hideToolbar() {
+        toolbar?.visibility = View.GONE
+    }
+
+    fun toggleToolbarVisibility() {
+        if (isToolbarVisible()) {
+            hideToolbar()
+        } else {
+            showToolbar()
+        }
+    }
+
+    fun showToolbar() {
+        toolbar?.visibility = View.VISIBLE
+    }
+
+    fun isToolbarVisible(): Boolean {
+        return toolbar?.visibility == View.VISIBLE
+    }
+
+    fun getToolbar(): Toolbar? = toolbar
+
+    fun initToolbar(toolbar: Toolbar) {
+        this.toolbar = toolbar
+        activity.setSupportActionBar(toolbar)
+    }
+
+    fun configureToolbar(config: ToolbarConfig) {
+        toolbar?.let { applyBaseConfig(it, config) }
+    }
+
+    private fun applyBaseConfig(toolbar: Toolbar, config: ToolbarConfig) {
+        // Clear previous content
+        toolbar.title = null
+        toolbar.navigationIcon = null
+        toolbar.menu.clear()
+        showToolbar()
+
+        // Remove any previous custom title views
+        for (i in 0 until toolbar.childCount) {
+            val view = toolbar.getChildAt(i)
+            if (view is TextView && view.tag == "centered_title") {
+                toolbar.removeView(view)
+            }
+        }
+
+        // Set title
+        if (config.isTitleCentered) {
+            // For centered title, we need a custom view
+            val titleTextView = TextView(activity).apply {
+                text = config.title
+                textSize = config.titleSize
+                gravity = Gravity.CENTER
+                tag = "centered_title" // Add a tag to identify our custom view
+                layoutParams = Toolbar.LayoutParams(
+                    Toolbar.LayoutParams.WRAP_CONTENT,
+                    Toolbar.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    gravity = Gravity.CENTER
+                }
+
+                // Apply theme-aware title color
+                config.titleColorResId?.let {
+                    setTextColor(ContextCompat.getColor(activity, it))
+                } ?: run {
+                    // If no specific color is provided, use default text color from theme
+                    val typedValue = TypedValue()
+                    activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+                    setTextColor(typedValue.data)
+                }
+            }
+            toolbar.addView(titleTextView)
+        } else {
+            toolbar.title = config.title
+            config.titleColorResId?.let {
+                toolbar.setTitleTextColor(ContextCompat.getColor(activity, it))
+            } ?: run {
+                // If no specific color is provided, use default text color from theme
+                val typedValue = TypedValue()
+                activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+                toolbar.setTitleTextColor(typedValue.data)
+            }
+        }
+
+        // Background color
+        config.backgroundColorResId?.let {
+            toolbar.setBackgroundColor(ContextCompat.getColor(activity, it))
+        }
+
+        // Elevation
+        config.elevation?.let {
+            toolbar.elevation = it
+        }
+
+        // Navigation icon
+        config.navigationIcon?.let { icon ->
+            toolbar.setNavigationIcon(icon)
+            config.navigationIconTintResId?.let { tintResId ->
+                toolbar.navigationIcon?.setTint(ContextCompat.getColor(activity, tintResId))
+            }
+            config.onNavigationClick?.let { listener ->
+                toolbar.setNavigationOnClickListener { listener() }
+            }
+        }
+
+        // Menu
+        config.menuRes?.let { menuRes ->
+            toolbar.inflateMenu(menuRes)
+            config.menuIconTintResId?.let { tintResId ->
+                val tintColor = ContextCompat.getColor(activity, tintResId)
+                toolbar.menu.forEach { menuItem ->
+                    menuItem.icon?.setTint(tintColor)
+                }
+            }
+            config.onMenuItemClick?.let { listener ->
+                toolbar.setOnMenuItemClickListener { menuItem ->
+                    listener(menuItem)
+                }
+            }
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/BaseBottomSheetFragment.kt
+================
+package com.ltthuc.ui.base
+
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ltthuc.ui.extension.alertDialog
+import com.ltthuc.ui.extension.observe
+import com.ltthuc.utils.AppException
+import com.ltthuc.utils.getErrorMessage
+
+abstract class BaseBottomSheetFragment <DB : ViewDataBinding, VM : BaseViewModel>(private val inflate: Inflate<DB>) : BottomSheetDialogFragment() {
+    private lateinit var viewModel: VM
+    private var _binding: DB? = null
+    private var bottomSheetBehavior: BottomSheetBehavior<*>? = null
+
+    val binding get() = _binding!!
+
+    abstract fun getVM(): VM
+
+    abstract fun bindVM(binding: DB, vm: VM)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = getVM()
+    }
+
+    open fun onCreatedDialogCustom(dialog: Dialog) {
+        dialog.window!!.setBackgroundDrawable(
+            ColorDrawable(Color.WHITE)
+        )
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bindVM(binding, viewModel)
+        with(viewModel) {
+            observe(progressLiveEvent) { show ->
+                if (show) (activity as BaseActivity<*, *>).showProgress()
+                else (activity as BaseActivity<*, *>).hideProgress()
+            }
+
+            observe(errorMessage) { msg ->
+                when(msg){
+                    is AppException -> {
+                        activity?.alertDialog(getString(com.ltthuc.utils.R.string.alert_error_title),msg.getErrorMessage(requireContext()))
+                    }
+                    is String -> {
+                        activity?.alertDialog(getString(com.ltthuc.utils.R.string.alert_error_title),msg)?.show()
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            execute()
+        }
+    }
+
+    private val mBottomSheetBehaviorCallback: BottomSheetBehavior.BottomSheetCallback = object : BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            if (BottomSheetBehavior.STATE_EXPANDED == newState) {
+//                showView(mBinding!!.appBarLayout, getActionBarSize());
+//                hideAppBar(mBinding!!.ivServiceTitle);
+//                hideAppBar(mBinding!!.viewLine);
+
+            }
+            if (BottomSheetBehavior.STATE_COLLAPSED == newState) {
+//                hideAppBar(mBinding!!.appBarLayout);
+//                showView(mBinding!!.ivServiceTitle, resources.getDimension(R.dimen._20sdp).toInt())
+//                showView(mBinding!!.viewLine, resources.getDimension(R.dimen._4sdp).toInt());
+            }
+
+            if (BottomSheetBehavior.STATE_HIDDEN == newState) {
+                dismiss();
+            }
+        }
+
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {}
+    }
+
+    fun setUpAdapter(adapter: RecyclerView.Adapter<*>?, recyclerView: RecyclerView, showDivider: Boolean = true) {
+        with(adapter) {
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = this
+            recyclerView.itemAnimator = null
+            recyclerView.layoutManager = layoutManager
+            if (showDivider) {
+                recyclerView.addItemDecoration(
+                    DividerItemDecoration(
+                        context,
+                        layoutManager.orientation
+                    )
+                )
+            }
+
+        }
+    }
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/BaseDialogFragment.kt
+================
+package com.ltthuc.ui.base
+
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import com.ltthuc.ui.extension.alertDialog
+import com.ltthuc.ui.extension.observe
+import com.ltthuc.ui.utils.ScreenUtils.getScreenWidth
+import com.ltthuc.utils.AppException
+import com.ltthuc.utils.R
+import com.ltthuc.utils.getErrorMessage
+import com.ltthuc.ui.R as ui
+
+abstract class BaseDialogFragment<DB : ViewDataBinding, VM : BaseViewModel>(private val inflate: Inflate<DB>) : DialogFragment() {
+    private lateinit var viewModel: VM
+    protected open var isFullScreen = true
+    private var _binding: DB? = null
+    val binding get() = _binding!!
+
+    abstract fun getVM(): VM
+
+    abstract fun bindVM(binding: DB, vm: VM)
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = getVM()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        onChildStart()
+    }
+
+    open fun onChildStart() {
+        val dialog = dialog
+        if (dialog != null) {
+            dialog.window!!
+                .setLayout((getScreenWidth(requireContext()) * .9).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        if (isFullScreen) {
+            setStyle(STYLE_NO_TITLE, ui.style.FullScreenDialogStyle)
+        }
+        isCancelable = true
+        val dialog = super.onCreateDialog(savedInstanceState)
+        onCreatedDialogCustom(dialog)
+        return dialog
+    }
+
+    open fun onCreatedDialogCustom(dialog: Dialog) {
+        dialog.window!!.setBackgroundDrawable(
+            ColorDrawable(Color.WHITE)
+        )
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        bindVM(binding, viewModel)
+        with(viewModel) {
+            observe(progressLiveEvent) { show ->
+                if (show) (activity as BaseActivity<*, *>).showProgress()
+                else (activity as BaseActivity<*, *>).hideProgress()
+            }
+
+            observe(errorMessage) { msg ->
+                when(msg){
+                    is AppException -> {
+                        activity?.alertDialog(getString(R.string.alert_error_title),msg.getErrorMessage(requireContext()))
+                    }
+                    is String -> {
+                        activity?.alertDialog(getString(R.string.alert_error_title),msg)?.show()
+
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            execute()
+        }
+    }
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/BaseFragment.kt
+================
+package com.ltthuc.ui.base
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
+import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ltthuc.ads.AdsManager
+import com.ltthuc.ads.AdsSettings
+import com.ltthuc.ads.BannerAd
+import com.ltthuc.ads.BannerType
+import com.ltthuc.ui.R
+import com.ltthuc.ui.adapter.section.CustomItemDecoration
+import com.ltthuc.ui.base.toolbar.IToolbar
+import com.ltthuc.ui.base.toolbar.ToolbarManager
+import com.ltthuc.ui.base.toolbar.ToolbarViewModel
+import com.ltthuc.ui.extension.alertDialog
+import com.ltthuc.ui.extension.observe
+import com.ltthuc.ui.extension.transparentStatusBar
+import com.ltthuc.ui.utils.CoreUIConstants.KEY_SHOW_BOTTOM_BANNER_ADS
+import com.ltthuc.ui.utils.CoreUIConstants.KEY_SHOW_BOTTOM_BAR
+import com.ltthuc.utils.AppException
+import com.ltthuc.utils.ISecretAdsKey
+import com.ltthuc.utils.getErrorMessage
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
+
+abstract class BaseFragment<DB : ViewDataBinding, VM : BaseViewModel>(private val inflate: Inflate<DB>) : Fragment() {
+    private lateinit var viewModel: VM
+    private val TAG = this::class.java.simpleName
+    protected open var transparentStatusBar: Boolean = true
+    private var isStopped = false
+    private var reCreateView = false
+    private var _reCallOnViewCreated = false
+    protected val toolbar: ToolbarViewModel by activityViewModels()
+
+    protected var bannerAd: BannerAd? = null
+
+    protected lateinit var toolbarManager: ToolbarManager
+    private var _binding: DB? = null
+
+    val binding get() = _binding!!
+    abstract fun getVM(): VM
+
+    abstract fun bindVM(binding: DB, vm: VM)
+    open fun bindView(){ requireActivity().transparentStatusBar(true) }
+
+
+    open var fragmentResultCompletion: (Intent?) -> Unit = {}
+
+    val registerForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result?.resultCode == Activity.RESULT_OK) {
+            fragmentResultCompletion(result.data)
+        } else {
+            fragmentResultCompletion(null)
+        }
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        bindView()
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = getVM()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isStopped) {
+            isStopped = false
+            if (!reCreateView) {
+                resumeFromBackGround()
+            }
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setUpToolbar()
+        bindVM(binding, viewModel)
+        binding.lifecycleOwner = viewLifecycleOwner
+        with(viewModel) {
+            observe(progressLiveEvent) { show ->
+                if (show) (activity as BaseActivity<*, *>).showProgress()
+                else {
+                    (activity as BaseActivity<*, *>).hideProgress()
+                }
+            }
+
+            observe(errorMessage) { msg ->
+                when(msg){
+                    is AppException -> {
+                        activity?.alertDialog(getString(com.ltthuc.utils.R.string.alert_error_title),msg.getErrorMessage(requireContext()))
+                    }
+                    is String -> {
+                        activity?.alertDialog(getString(com.ltthuc.utils.R.string.alert_error_title),msg)?.show()
+
+                    }
+                }
+            }
+        }
+        setOnClickListener()
+        reCreateView = true
+        if (!_reCallOnViewCreated) {
+            onViewCreatedCallOnce()
+            _reCallOnViewCreated = true
+        } else {
+            reCallOnViewCreated()
+        }
+
+    }
+
+    open fun onViewCreatedCallOnce() {}
+
+    open fun reCallOnViewCreated() {}
+
+    fun <C> startActivityForResult(clazz: Class<C>) {
+        activity?.let {
+            registerForResult.launch(Intent(it, clazz))
+        }
+    }
+
+    fun launchOnLifecycleScope(execute: suspend () -> Unit) {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            execute()
+        }
+    }
+
+    protected open fun setUpAds(iSecretAdsKey: ISecretAdsKey, bannerType: BannerType, adManager: AdsManager?= null) {
+        if (AdsSettings.disableAd) return
+        if (bannerAd == null) {
+            bannerAd = BannerAd(iSecretAdsKey)
+        }
+        if (bannerAd?.isExpanded == true) {
+            viewLifecycleOwner.lifecycleScope.launch {
+              binding.root.findViewById<FrameLayout>(R.id.bannerAdView)?.let {
+                    adManager?.showAds(it)
+                }
+
+            }
+        } else {
+            binding.root.findViewById<FrameLayout>(R.id.bannerAdView)?.let {
+                bannerAd?.loadAndShowBannerAd(true, it, bannerType)
+                viewLifecycleOwner.lifecycleScope.launch {
+                    adManager?.loadAd(it)
+                }
+            }
+
+        }
+    }
+
+
+    fun showBottomBar(isShow: Boolean) {
+        requireActivity().supportFragmentManager.setFragmentResult(KEY_SHOW_BOTTOM_BAR, bundleOf(
+            KEY_SHOW_BOTTOM_BAR to isShow)
+        )
+
+    }
+
+    fun showActivityBannerAds(isShow: Boolean) {
+        requireActivity().supportFragmentManager.setFragmentResult(
+            KEY_SHOW_BOTTOM_BANNER_ADS, bundleOf(
+                KEY_SHOW_BOTTOM_BANNER_ADS to isShow
+            )
+        )
+
+    }
+
+  open  fun setUpAdapter(adapter: RecyclerView.Adapter<*>?, recyclerView: RecyclerView, itemDecoration: CustomItemDecoration? = null) {
+        with(adapter) {
+            val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = this
+            recyclerView.itemAnimator = null
+            recyclerView.layoutManager = layoutManager
+            itemDecoration?.let {
+                recyclerView.addItemDecoration(it)
+            }
+
+        }
+    }
+
+
+    fun setUpGridAdapter(adapter: RecyclerView.Adapter<*>?, recyclerView: RecyclerView, showDivider: Boolean = true, column: Int, isVertical: Boolean = true) {
+        with(adapter) {
+            val layoutManager = GridLayoutManager(context, column, LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = this
+            recyclerView.itemAnimator = null
+            recyclerView.layoutManager = layoutManager
+            if (showDivider) {
+                recyclerView.addItemDecoration(
+                    DividerItemDecoration(
+                        context,
+                        layoutManager.orientation
+                    )
+                )
+            }
+
+        }
+    }
+
+    protected open fun setUpToolbar() {
+        if (this::class.simpleName != "SplashFragment") {
+            toolbarManager = (requireActivity() as IToolbar).getToolbar()
+        }
+    }
+
+
+    fun logD(methodName: String, message: String?) {
+        Log.d(TAG, "$methodName: $message")
+    }
+
+    fun logI(methodName: String, message: String?) {
+        Log.i(TAG, "$methodName: $message")
+    }
+
+    fun logE(methodName: String, message: String?) {
+        Log.e(TAG, "$methodName: $message")
+    }
+
+    fun isTransparentStatusBar(): Boolean = transparentStatusBar
+
+    open fun setOnClickListener() {}
+
+    open fun resumeFromBackGround(){
+        Log.d(TAG, "ResumeFromBackground")
+    }
+
+    open fun rightClickToolbar() {}
+    open fun leftClickToolbar(): Boolean { return false}
+    open fun endRightClickToolbar() {}
+    open fun rightTitleToolbarClick() {}
+    fun getRightTitleToolbar(): TextView {
+        return (binding.root.parent.parent.parent as View).findViewById(R.id.right_toolbar_title)
+    }
+    fun getTitleToolbar(): TextView {
+        return (binding.root.parent.parent.parent as View).findViewById(R.id.titleToolbar)
+    }
+    fun getToolbar(): View {
+        return (binding.root.parent.parent.parent as View).findViewById(R.id.toolbar)
+    }
+    override fun onStop() {
+        super.onStop()
+        isStopped = true
+        reCreateView = false
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        bannerAd?.clear()
+        _binding = null
+    }
+
+
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/BaseProgress.kt
+================
+package com.ltthuc.ui.base
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import com.ltthuc.ui.R
+
+
+class BaseProgress : DialogFragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.TransparentDialog)
+        isCancelable = true
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.loading_indicator_view, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (dialog != null) {
+            val width = ViewGroup.LayoutParams.MATCH_PARENT
+            val height = ViewGroup.LayoutParams.MATCH_PARENT
+            dialog?.window?.setLayout(width, height)
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/BaseViewModel.kt
+================
+package com.ltthuc.ui.base
+
+
+
+import android.content.Context
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.ltthuc.utils.AppException
+
+import com.ltthuc.ui.utils.livedata.SingleLiveEvent
+import dagger.hilt.android.internal.managers.ViewComponentManager
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+
+abstract class BaseViewModel: ViewModel() {
+    protected var tag = this::class.java.simpleName
+
+
+    var progressLiveEvent = SingleLiveEvent<Boolean>()
+    var errorMessage = SingleLiveEvent<Any>()
+    protected val _state = MutableLiveData<UIState>()
+
+    val isDarkMode = MutableLiveData(false)
+
+    val state: LiveData<UIState>
+        get() = _state
+
+
+    val handlerException = CoroutineExceptionHandler { _, exception ->
+        manageException(exception)
+    }
+
+    open fun manageException(exception: Any){
+        viewModelScope.launch {
+            if (exception is AppException) {
+
+                errorMessage.value = exception
+
+            } else if (exception is Throwable){
+                errorMessage.value = exception.localizedMessage
+                logD("manageException", "${errorMessage.value}")
+            }
+            progressLiveEvent.postValue(false)
+        }
+
+    }
+
+    inline fun  launchAsync(
+        crossinline execute: suspend () -> Unit,
+        crossinline onError:(Exception) -> Unit = {},
+        showProgress: Boolean = true
+    ) {
+        viewModelScope.launch(handlerException) {
+            if (showProgress)
+                progressLiveEvent.value = true
+            try {
+                execute()
+
+            } catch (ex: Exception) {
+                onError(ex)
+            } finally {
+                progressLiveEvent.postValue(false)
+            }
+        }
+    }
+
+    inline fun <T> launchPagingAsync(
+        crossinline execute: suspend () -> Flow<T>,
+        crossinline onSuccess: suspend (Flow<T>) -> Unit,
+        showProgress: Boolean = true
+    ) {
+        viewModelScope.launch {
+            try {
+                if (showProgress) {
+                    progressLiveEvent.value = true
+                }
+                val result = execute()
+                onSuccess(result)
+                progressLiveEvent.postValue(false)
+            } catch (ex: Exception) {
+                errorMessage.value = ex.message
+            } finally {
+                progressLiveEvent.postValue(false)
+            }
+        }
+    }
+
+    fun activityContext(context: Context): Context? {
+
+        return if (context is ViewComponentManager.FragmentContextWrapper) {
+            context.baseContext
+        } else context
+    }
+
+
+    fun logD(methodName: String, message: String?) {
+        Log.d(tag, "$methodName: $message")
+    }
+
+    fun logI(methodName: String, message: String?) {
+        Log.i(tag, "$methodName: $message")
+    }
+
+    fun logE(methodName: String, message: String?) {
+        Log.e(tag, "$methodName: $message")
+    }
+
+    fun showToast(context: Context, message: String?, type:Int = Toast.LENGTH_SHORT) {
+        Toast.makeText(context, message, type).show()
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/UIState.kt
+================
+package com.ltthuc.ui.base
+
+interface UIState
+
+================
+File: feature/src/main/res/drawable/bg_transparent.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/color_transparent" />
+</selector>
+
+================
+File: feature/src/main/res/drawable/rounded_edt.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" android:padding="10dp">
+    <solid android:color="?colorPrimary"/>
+    <stroke android:color="?android:colorPrimaryDark"
+        android:width="1dp"
+        >
+    </stroke> <!-- this one is ths color of the Rounded Button -->
+    <corners android:radius="5dp"/>
+</shape>
+
+================
+File: feature/src/main/res/drawable/rounded_gray.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" android:padding="10dp">
+    <solid android:color="@color/switch_button"/> <!-- this one is ths color of the Rounded Button -->
+    <corners android:radius="4dp"/>
+</shape>
+
+================
+File: feature/src/main/res/drawable/rounded_toggel.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" android:padding="10dp">
+    <solid android:color="?colorSurface"/> <!-- this one is ths color of the Rounded Button -->
+    <corners android:radius="5dp"/>
+</shape>
+
+================
+File: feature/src/main/res/layout/bottom_navigation.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.ltthuc.feature.presentation.page.navigation.NavigationViewModel" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottom_navigation_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/dimen_8dp_h"
+        app:cardCornerRadius="@dimen/dimen_0dp"
+        android:layout_gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/linBottom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_navigation_height"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.homeClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    is_selected="@{viewModel.tabOneSelected}"
+                    android:layout_width="26dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_home"
+                    app:tint="@color/bottom_item_bg"  />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    is_selected="@{viewModel.tabOneSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="home"
+                    android:text="home"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize"
+                    tools:textColor="@color/secondaryColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()-> viewModel.tabTwoClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    is_selected="@{viewModel.tabTwoSelected}"
+                    android:layout_width="26dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/icon_home"
+                    app:tint="@color/bottom_item_bg"  />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    is_selected="@{viewModel.tabTwoSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Notification"
+                    android:text="Notification"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize"
+                    tools:textColor="@color/secondaryColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.settingsClick()}"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="26dp"
+                    android:layout_height="@dimen/bottom_navigation_icon"
+                    android:layout_marginBottom="@dimen/bottom_navigation_icon_marginBottom"
+
+                    android:src="@drawable/icon_settings"
+                    is_selected="@{viewModel.tabSettingSelected}"
+                    app:tint="@color/bottom_item_bg" />
+
+                <TextView
+                    is_selected="@{viewModel.tabSettingSelected}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings"
+                    android:textColor="@color/bottom_item_text_bg"
+                    android:textSize="@dimen/bottom_navigation_title_textSize" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
+
+================
+File: feature/src/main/res/layout/fragment_home.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ltthuc.feature.presentation.page.home.HomeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rootView"
+        android:background="@color/red_600"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/bannerAdView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+================
+File: feature/src/main/res/layout/fragment_noti.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        app:layout_constraintBottom_toTopOf="@id/bannerAd"
+        android:layout_width="match_parent"
+        android:id="@+id/recyclerView"
+        android:background="@color/white"
+        tools:listitem="@layout/item_notification"
+        android:layout_height="0dp"/>
+    <FrameLayout
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:id="@+id/bannerAd"
+        android:layout_width="match_parent"
+        tools:layout_height="@dimen/dp_50"
+        android:layout_height="wrap_content"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+================
+File: feature/src/main/res/layout/fragment_settings.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.ltthuc.feature.presentation.page.settings.SettingViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="?android:colorBackground"
+        android:layout_height="match_parent"
+        android:id="@+id/linSetting"
+        android:orientation="vertical">
+        <FrameLayout
+            android:id="@+id/bannerAdView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>
+
+================
+File: feature/src/main/res/layout/fragment_splash.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+</FrameLayout>
+</layout>
+
+================
+File: feature/src/main/res/layout/item_notification.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/name"
+            android:textColor="?android:textColorPrimary"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgChecked"
+            android:clickable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgChecked"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+
+            android:layout_marginEnd="@dimen/dimen_16dp_w"
+            android:layout_width="24dp"
+            android:layout_height="24dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+================
+File: feature/src/main/res/layout/test_toolbar.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Center content -->
+    <LinearLayout
+        android:id="@+id/titleContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/dropdownIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_filter_selected_24"/>
+    </LinearLayout>
+
+    <!-- Custom actions: place these on the right side -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/gridViewButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:src="@drawable/icon_home"/>
+
+        <ImageView
+            android:id="@+id/refreshButton"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/icon_app_fluent_calc"/>
+    </LinearLayout>
+</RelativeLayout>
+
+================
+File: feature/src/main/res/menu/home_menu.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/icon_home"
+        android:title="Profile"
+        app:showAsAction="ifRoom"/>
+</menu>
+
+================
+File: feature/src/main/res/navigation/main_graph.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ltthuc.feature.presentation.page.splash.SplashFragment"
+        android:label="SplashFragment" />
+
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.ltthuc.feature.presentation.page.home.HomeFragment"
+        android:label="MainFragment" />
+
+    <action
+        android:id="@+id/toHome"
+        app:destination="@id/homeFragment"
+        />
+
+    <fragment
+        android:id="@+id/notification"
+        android:name="com.ltthuc.feature.presentation.page.notification.NotificationFragment"
+        android:label="Notification" />
+
+    <action
+        android:id="@+id/toNotification"
+        app:destination="@id/notification"
+        />
+
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ltthuc.feature.presentation.page.settings.SettingsFragment"
+        android:label="MainFragment" />
+
+    <action
+        android:id="@+id/toSettings"
+        app:destination="@id/settingsFragment"
+        />
+
+</navigation>
+
+================
+File: feature/src/main/res/values/dimens.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bottom_navigation_icon">26dp</dimen>
+    <dimen name="bottom_navigation_icon_marginBottom">2dp</dimen>
+    <dimen name="bottom_navigation_title_textSize">11sp</dimen>
+    <dimen name="bottom_navigation_shadow_height">4dp</dimen>
+    <dimen name="bottom_navigation_elevation">10dp</dimen>
+    <dimen name="bottom_navigation_height">58dp</dimen>
+    <dimen name="margin_bottom">212dp</dimen>
+
+
+    <dimen name="textSize_h1">26sp</dimen>
+    <dimen name="textSize_h2">22sp</dimen>
+    <dimen name="textSize_h3">18sp</dimen>
+    <dimen name="textSize_h4">14sp</dimen>
+    <dimen name="textSize_h5">11sp</dimen>
+    <dimen name="textSize_h6">10sp</dimen>
+    <dimen name="textSize_p">15sp</dimen>
+</resources>
+
+================
+File: feature/src/main/res/values/strings.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="stair_design">Stair Design</string>
+</resources>
+
+================
+File: feature/src/main/res/values/styles.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+</resources>
+
+================
+File: feature/src/main/AndroidManifest.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</manifest>
+
+================
+File: feature/.gitignore
+================
+/build
+
+================
+File: feature/build.gradle.kts
+================
+plugins {
+    alias(libs.plugins.ltthuc.android.feature)
+    id("kotlin-parcelize")
+}
+
+android {
+    namespace = "com.ltthuc.feature"
+    lint {
+        disable +=("MissingDefaultResource")
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.datastore)
+    implementation(libs.bundles.network)
+    implementation(libs.androidx.paging)
+}
+
+
+
+================================================================
+End of Codebase
+================================================================
