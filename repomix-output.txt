@@ -45,133 +45,123 @@ Additional Info:
 ================================================================
 Directory Structure
 ================================================================
-feature/
-  src/
-    main/
-      java/
-        com/
-          ltthuc/
-            feature/
-              data/
-                datastore/
-                  DataStoreKey.kt
-                repository/
-                  ApiServiceImp.kt
-              di/
-                imp/
-                  FeatureSettingImp.kt
-                FeatureModule.kt
-              domain/
-                entity/
-                  ApiPath.kt
-                  ApiResponse.kt
-                  entity.kt
-                repository/
-                  ApiDownloadFileService.kt
-                  ApiExternalService.kt
-                  ApiService.kt
-                  ApiVnMobileService.kt
-                usecase/
-                  SaveInputStreamAsPdfFileOnDirectoryUseCase.kt
-                entity.kt
-              dummy/
-                DummyTest.kt
-              presentation/
-                adapter/
-                  AdapterRowData.kt
-                  NotificationsAdapter.kt
-                page/
-                  home/
-                    HomeFragment.kt
-                    HomeViewModel.kt
-                  navigation/
-                    NavigationFragment.kt
-                    NavigationViewModel.kt
-                  notification/
-                    NotificationFragment.kt
-                    NotificationViewModel.kt
-                  settings/
-                    SettingsFragment.kt
-                    SettingsViewModel.kt
-                  splash/
-                    SplashFragment.kt
-                    SplashViewModel.kt
-              utils/
-                FeatureConstants.kt
-                TimeUtils.kt
-            navigation/
-              api/
-                model/
-                  Destination.kt
-                Navigator.kt
-              impl/
-                di/
-                  NavigationModule.kt
-                DefaultNavigator.kt
-            network/
-              di/
-                NetworkModule.kt
-              helper/
-                ExceptionCallAdapterFactory.kt
-                NetworkConnectionInterceptor.kt
-              paging/
-                datasource/
-                  BasePagingSource.kt
-              response/
-                PagedResponse.kt
-                ResponseData.kt
-            ui/
-              adapter/
-                section/
-                  CustomItemDecoration.kt
-                  SectionHeaderDecoration.kt
-                AdapterRowData.kt
-                BaseAdapter.kt
-                BasePagingAdapter.kt
-                BaseViewHolder.kt
-                OnStartDragListener.kt
-                PagingLoadStateAdapter.kt
-                SingleLayoutAdapter.kt
-                SingleLayoutPagingAdapter.kt
-              base/
-                toolbar/
-                  IToolbar.kt
-                  ToolbarManager.kt
-                BaseBottomSheetFragment.kt
-                BaseDialogFragment.kt
-                BaseFragment.kt
-                BaseProgress.kt
-                BaseViewModel.kt
-                UIState.kt
-      res/
-        drawable/
-          bg_transparent.xml
-          rounded_edt.xml
-          rounded_gray.xml
-          rounded_toggel.xml
-        layout/
-          bottom_navigation.xml
-          fragment_home.xml
-          fragment_noti.xml
-          fragment_settings.xml
-          fragment_splash.xml
-          item_notification.xml
-          test_toolbar.xml
-        menu/
-          home_menu.xml
-        navigation/
-          main_graph.xml
-        values/
-          dimens.xml
-          strings.xml
-          styles.xml
-      AndroidManifest.xml
-  .gitignore
-  build.gradle.kts
+feature/.gitignore
+feature/build.gradle.kts
+feature/src/main/AndroidManifest.xml
+feature/src/main/java/com/ltthuc/feature/data/datastore/DataStoreKey.kt
+feature/src/main/java/com/ltthuc/feature/data/repository/ApiServiceImp.kt
+feature/src/main/java/com/ltthuc/feature/di/FeatureModule.kt
+feature/src/main/java/com/ltthuc/feature/di/imp/FeatureSettingImp.kt
+feature/src/main/java/com/ltthuc/feature/domain/entity.kt
+feature/src/main/java/com/ltthuc/feature/domain/entity/ApiPath.kt
+feature/src/main/java/com/ltthuc/feature/domain/entity/ApiResponse.kt
+feature/src/main/java/com/ltthuc/feature/domain/entity/entity.kt
+feature/src/main/java/com/ltthuc/feature/domain/repository/ApiDownloadFileService.kt
+feature/src/main/java/com/ltthuc/feature/domain/repository/ApiExternalService.kt
+feature/src/main/java/com/ltthuc/feature/domain/repository/ApiService.kt
+feature/src/main/java/com/ltthuc/feature/domain/repository/ApiVnMobileService.kt
+feature/src/main/java/com/ltthuc/feature/domain/usecase/SaveInputStreamAsPdfFileOnDirectoryUseCase.kt
+feature/src/main/java/com/ltthuc/feature/dummy/DummyTest.kt
+feature/src/main/java/com/ltthuc/feature/presentation/adapter/AdapterRowData.kt
+feature/src/main/java/com/ltthuc/feature/presentation/adapter/NotificationsAdapter.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/home/HomeFragment.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/home/HomeViewModel.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/navigation/NavigationFragment.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/navigation/NavigationViewModel.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/notification/NotificationFragment.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/notification/NotificationViewModel.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/settings/SettingsFragment.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/settings/SettingsViewModel.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/splash/SplashFragment.kt
+feature/src/main/java/com/ltthuc/feature/presentation/page/splash/SplashViewModel.kt
+feature/src/main/java/com/ltthuc/feature/utils/FeatureConstants.kt
+feature/src/main/java/com/ltthuc/feature/utils/TimeUtils.kt
+feature/src/main/java/com/ltthuc/navigation/api/model/Destination.kt
+feature/src/main/java/com/ltthuc/navigation/api/Navigator.kt
+feature/src/main/java/com/ltthuc/navigation/impl/DefaultNavigator.kt
+feature/src/main/java/com/ltthuc/navigation/impl/di/NavigationModule.kt
+feature/src/main/java/com/ltthuc/network/di/NetworkModule.kt
+feature/src/main/java/com/ltthuc/network/helper/ExceptionCallAdapterFactory.kt
+feature/src/main/java/com/ltthuc/network/helper/NetworkConnectionInterceptor.kt
+feature/src/main/java/com/ltthuc/network/paging/datasource/BasePagingSource.kt
+feature/src/main/java/com/ltthuc/network/response/PagedResponse.kt
+feature/src/main/java/com/ltthuc/network/response/ResponseData.kt
+feature/src/main/java/com/ltthuc/ui/adapter/AdapterRowData.kt
+feature/src/main/java/com/ltthuc/ui/adapter/BaseAdapter.kt
+feature/src/main/java/com/ltthuc/ui/adapter/BasePagingAdapter.kt
+feature/src/main/java/com/ltthuc/ui/adapter/BaseViewHolder.kt
+feature/src/main/java/com/ltthuc/ui/adapter/OnStartDragListener.kt
+feature/src/main/java/com/ltthuc/ui/adapter/PagingLoadStateAdapter.kt
+feature/src/main/java/com/ltthuc/ui/adapter/section/CustomItemDecoration.kt
+feature/src/main/java/com/ltthuc/ui/adapter/section/SectionHeaderDecoration.kt
+feature/src/main/java/com/ltthuc/ui/adapter/SingleLayoutAdapter.kt
+feature/src/main/java/com/ltthuc/ui/adapter/SingleLayoutPagingAdapter.kt
+feature/src/main/java/com/ltthuc/ui/adapter/WheelView.kt
+feature/src/main/java/com/ltthuc/ui/base/BaseBottomSheetFragment.kt
+feature/src/main/java/com/ltthuc/ui/base/BaseDialogFragment.kt
+feature/src/main/java/com/ltthuc/ui/base/BaseFragment.kt
+feature/src/main/java/com/ltthuc/ui/base/BaseProgress.kt
+feature/src/main/java/com/ltthuc/ui/base/BaseViewModel.kt
+feature/src/main/java/com/ltthuc/ui/base/toolbar/IToolbar.kt
+feature/src/main/java/com/ltthuc/ui/base/toolbar/ToolbarManager.kt
+feature/src/main/java/com/ltthuc/ui/base/UIState.kt
+feature/src/main/res/drawable/bg_transparent.xml
+feature/src/main/res/drawable/rounded_edt.xml
+feature/src/main/res/drawable/rounded_gray.xml
+feature/src/main/res/drawable/rounded_toggel.xml
+feature/src/main/res/layout/bottom_navigation.xml
+feature/src/main/res/layout/fragment_home.xml
+feature/src/main/res/layout/fragment_noti.xml
+feature/src/main/res/layout/fragment_settings.xml
+feature/src/main/res/layout/fragment_splash.xml
+feature/src/main/res/layout/item_notification.xml
+feature/src/main/res/layout/test_toolbar.xml
+feature/src/main/res/menu/home_menu.xml
+feature/src/main/res/navigation/main_graph.xml
+feature/src/main/res/values/attrs.xml
+feature/src/main/res/values/dimens.xml
+feature/src/main/res/values/strings.xml
+feature/src/main/res/values/styles.xml
+package.json
 
 ================================================================
 Files
 ================================================================
+
+================
+File: feature/.gitignore
+================
+/build
+
+================
+File: feature/build.gradle.kts
+================
+plugins {
+    alias(libs.plugins.ltthuc.android.feature)
+    id("kotlin-parcelize")
+}
+
+android {
+    namespace = "com.ltthuc.feature"
+    lint {
+        disable +=("MissingDefaultResource")
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.datastore)
+    implementation(libs.bundles.network)
+    implementation(libs.androidx.paging)
+}
+
+================
+File: feature/src/main/AndroidManifest.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+</manifest>
 
 ================
 File: feature/src/main/java/com/ltthuc/feature/data/datastore/DataStoreKey.kt
@@ -205,6 +195,74 @@ class ApiServiceImp @Inject constructor(
 
         return  apiVnMobileService.getNotifications(countryCode)
     }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/feature/di/FeatureModule.kt
+================
+package com.ltthuc.feature.di
+
+import com.ltthuc.feature.di.imp.FeatureSettingImp
+import com.ltthuc.feature.domain.repository.ApiExternalService
+import com.ltthuc.feature.domain.repository.ApiService
+import com.ltthuc.feature.data.repository.ApiServiceImp
+import com.ltthuc.feature.domain.repository.ApiDownloadFileService
+import com.ltthuc.feature.domain.repository.ApiVnMobileService
+import com.ltthuc.network.helper.ExceptionCallAdapterFactory
+import com.ltthuc.ui.base.settings.IFeatureSetting
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Named
+import javax.inject.Singleton
+
+@InstallIn(SingletonComponent::class)
+@Module
+interface FeatureModule {
+
+    companion object {
+        @Provides
+        @Singleton
+        fun provideApiRetrofit(
+            apiVnMobileService: ApiVnMobileService,
+            apiExternalService: ApiExternalService
+        ): ApiService = ApiServiceImp(apiVnMobileService, apiExternalService)
+
+        @Provides
+        @Singleton
+        @Named("download")
+        fun provideDownloadRetrofit(client: OkHttpClient): Retrofit =
+            Retrofit.Builder()
+                .baseUrl(ApiDownloadFileService.DOWNLOAD_URL)
+                .client(client)
+                .addCallAdapterFactory(ExceptionCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+
+        @Provides
+        @Singleton
+        fun provideVnMobileService(@Named("VnMobile") retrofit: Retrofit): ApiVnMobileService =
+            retrofit.create(ApiVnMobileService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideExternalService(@Named("External") retrofit: Retrofit): ApiExternalService =
+            retrofit.create(ApiExternalService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideDownloadService(@Named("download") retrofit: Retrofit): ApiDownloadFileService =
+            retrofit.create(ApiDownloadFileService::class.java)
+
+        @Provides
+        @Singleton
+        fun provideFeatureSetting(): IFeatureSetting = FeatureSettingImp()
+    }
+
 }
 
 ================
@@ -280,72 +338,9 @@ class FeatureSettingImp: IFeatureSetting {
 }
 
 ================
-File: feature/src/main/java/com/ltthuc/feature/di/FeatureModule.kt
+File: feature/src/main/java/com/ltthuc/feature/domain/entity.kt
 ================
-package com.ltthuc.feature.di
-
-import com.ltthuc.feature.di.imp.FeatureSettingImp
-import com.ltthuc.feature.domain.repository.ApiExternalService
-import com.ltthuc.feature.domain.repository.ApiService
-import com.ltthuc.feature.data.repository.ApiServiceImp
-import com.ltthuc.feature.domain.repository.ApiDownloadFileService
-import com.ltthuc.feature.domain.repository.ApiVnMobileService
-import com.ltthuc.network.helper.ExceptionCallAdapterFactory
-import com.ltthuc.ui.base.settings.IFeatureSetting
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
-import javax.inject.Singleton
-
-@InstallIn(SingletonComponent::class)
-@Module
-interface FeatureModule {
-
-    companion object {
-        @Provides
-        @Singleton
-        fun provideApiRetrofit(
-            apiVnMobileService: ApiVnMobileService,
-            apiExternalService: ApiExternalService
-        ): ApiService = ApiServiceImp(apiVnMobileService, apiExternalService)
-
-        @Provides
-        @Singleton
-        @Named("download")
-        fun provideDownloadRetrofit(client: OkHttpClient): Retrofit =
-            Retrofit.Builder()
-                .baseUrl(ApiDownloadFileService.DOWNLOAD_URL)
-                .client(client)
-                .addCallAdapterFactory(ExceptionCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        @Provides
-        @Singleton
-        fun provideVnMobileService(@Named("VnMobile") retrofit: Retrofit): ApiVnMobileService =
-            retrofit.create(ApiVnMobileService::class.java)
-
-        @Provides
-        @Singleton
-        fun provideExternalService(@Named("External") retrofit: Retrofit): ApiExternalService =
-            retrofit.create(ApiExternalService::class.java)
-
-        @Provides
-        @Singleton
-        fun provideDownloadService(@Named("download") retrofit: Retrofit): ApiDownloadFileService =
-            retrofit.create(ApiDownloadFileService::class.java)
-
-        @Provides
-        @Singleton
-        fun provideFeatureSetting(): IFeatureSetting = FeatureSettingImp()
-    }
-
-}
+package com.ltthuc.feature.domain
 
 ================
 File: feature/src/main/java/com/ltthuc/feature/domain/entity/ApiPath.kt
@@ -507,11 +502,6 @@ class SaveInputStreamAsPdfFileOnDirectoryUseCase @Inject constructor(){
         }
     }
 }
-
-================
-File: feature/src/main/java/com/ltthuc/feature/domain/entity.kt
-================
-package com.ltthuc.feature.domain
 
 ================
 File: feature/src/main/java/com/ltthuc/feature/dummy/DummyTest.kt
@@ -1367,28 +1357,6 @@ interface Navigator{
 }
 
 ================
-File: feature/src/main/java/com/ltthuc/navigation/impl/di/NavigationModule.kt
-================
-package com.ltthuc.navigation.impl.di
-
-import com.ltthuc.navigation.api.Navigator
-import com.ltthuc.navigation.impl.DefaultNavigator
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
-
-@Module
-@InstallIn(SingletonComponent::class)
-internal interface NavigationModule {
-
-    @Singleton
-    @Binds
-    fun provideNavigator(navigator: DefaultNavigator): Navigator
-}
-
-================
 File: feature/src/main/java/com/ltthuc/navigation/impl/DefaultNavigator.kt
 ================
 package com.ltthuc.navigation.impl
@@ -1413,6 +1381,28 @@ internal class DefaultNavigator @Inject constructor() : Navigator {
     override fun goTo(destination: Destination) {
         this.destination.tryEmit(destination)
     }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/navigation/impl/di/NavigationModule.kt
+================
+package com.ltthuc.navigation.impl.di
+
+import com.ltthuc.navigation.api.Navigator
+import com.ltthuc.navigation.impl.DefaultNavigator
+import dagger.Binds
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
+
+@Module
+@InstallIn(SingletonComponent::class)
+internal interface NavigationModule {
+
+    @Singleton
+    @Binds
+    fun provideNavigator(navigator: DefaultNavigator): Navigator
 }
 
 ================
@@ -1694,245 +1684,6 @@ data class PageInfo(
 File: feature/src/main/java/com/ltthuc/network/response/ResponseData.kt
 ================
 package com.ltthuc.network.response
-
-================
-File: feature/src/main/java/com/ltthuc/ui/adapter/section/CustomItemDecoration.kt
-================
-package com.ltthuc.ui.adapter.section
-
-import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-
-class CustomItemDecoration(
-    context: Context,
-    private val isShowLastDivider: Boolean = false,
-    private val isShowFirstDivider: Boolean = true,
-    private val isShowTopDivider: Boolean = false,
-) : RecyclerView.ItemDecoration() {
-
-    private val ATTRS = intArrayOf(android.R.attr.listDivider)
-    private var mDivider: Drawable? = null
-
-    init {
-        val a = context.obtainStyledAttributes(ATTRS)
-        mDivider = a.getDrawable(0)
-        a.recycle()
-    }
-
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
-        val left = 0
-        val right = parent.width
-
-        for (i in 0 until parent.childCount) {
-            val child: View = parent.getChildAt(i)
-            val position = parent.getChildLayoutPosition(child)
-
-            val params = child.layoutParams as RecyclerView.LayoutParams
-
-            val top: Int = child.bottom + params.bottomMargin
-            val bottom: Int = top + (mDivider?.intrinsicHeight ?: 0)
-
-            if (position != state.itemCount - 1 || isShowLastDivider ) {
-                mDivider?.setBounds(left, top, right, bottom)
-                mDivider?.draw(c)
-            }
-
-            if (position == 0 && isShowTopDivider) {
-                val bottomFirst = child.top - params.topMargin
-                val topFirst = bottomFirst - (mDivider?.intrinsicHeight ?: 0)
-                mDivider?.setBounds(left, topFirst, right, bottomFirst)
-                mDivider?.draw(c)
-            }
-
-
-        }
-    }
-
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State,
-    ) {
-        val position = parent.getChildLayoutPosition(view)
-
-        // hide the divider for the last child
-        if (!isShowLastDivider && position == state.itemCount - 1) {
-            outRect.setEmpty()
-        } else if (!isShowFirstDivider && position == 0) {
-            outRect.setEmpty()
-        } else if (isShowFirstDivider && isShowTopDivider && position == 0) {
-            val height = mDivider?.intrinsicHeight ?: 0
-            outRect.top = height
-            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
-
-        } else {
-            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
-            // super.getItemOffsets(outRect, view, parent, state)
-        }
-    }
-}
-
-================
-File: feature/src/main/java/com/ltthuc/ui/adapter/section/SectionHeaderDecoration.kt
-================
-package com.ltthuc.ui.adapter.section
-
-import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.text.Layout.Alignment.ALIGN_CENTER
-import android.text.StaticLayout
-import android.text.TextPaint
-import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.getColorOrThrow
-import androidx.core.content.res.getDimensionOrThrow
-import androidx.core.content.res.getDimensionPixelSizeOrThrow
-import androidx.core.content.res.getResourceIdOrThrow
-import androidx.core.graphics.withTranslation
-import androidx.core.view.forEach
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import androidx.recyclerview.widget.RecyclerView.State
-import com.ltthuc.ui.R
-import com.ltthuc.ui.extension.newStaticLayout
-import kotlin.math.ceil
-
-/**
- * A [RecyclerView.ItemDecoration] which draws sticky headers marking the header title in a given list of
- * [Block]s. It also inserts gaps between days.
- */
-class SectionHeadersDecoration(
-    val context: Context,
-    style: Int,
-) : ItemDecoration() {
-
-    private val paint: TextPaint
-    private val textWidth: Int
-    private val decorHeight: Int
-    private val verticalBias: Float
-    private val divider: Drawable
-    init {
-        val attrs = context.obtainStyledAttributes(
-            style,
-            R.styleable.SectionHeader
-        )
-        paint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG).apply {
-            color = attrs.getColorOrThrow(R.styleable.SectionHeader_android_textColor)
-            textSize = attrs.getDimensionOrThrow(R.styleable.SectionHeader_android_textSize)
-            divider = attrs.getDrawable(R.styleable.SectionHeader_android_drawable)?: getDefaultDivider(context)!!
-
-
-            try {
-                typeface = ResourcesCompat.getFont(
-                    context,
-                    attrs.getResourceIdOrThrow(R.styleable.SectionHeader_android_fontFamily)
-                )
-            } catch (_: Exception) {
-                // ignore
-            }
-        }
-
-        paint.bgColor = ContextCompat.getColor(context, R.color.color_orange)
-
-        textWidth = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_width)
-        val height = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_height)
-        val minHeight = ceil(paint.textSize).toInt()
-        decorHeight = Math.max(height, minHeight)
-
-        verticalBias = attrs.getFloat(R.styleable.SectionHeader_verticalBias, 0.5f).coerceIn(0f, 1f)
-
-        attrs.recycle()
-    }
-
-    // Get the header index and create header layouts for each
-    private var _headerSlots: Map<Int, StaticLayout>  = emptyMap()
-
-    fun setHeaderSlot(slot: Map<Int, StaticLayout>) {
-        this._headerSlots = slot
-    }
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
-        val position = parent.getChildAdapterPosition(view)
-        outRect.top = if (_headerSlots.containsKey(position)) decorHeight else 0
-    }
-
-    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: State) {
-        val layoutManager = parent.layoutManager ?: return
-        val centerX = parent.width / 2f
-        val dividerLeft: Int = 32
-
-        // right margin for the divider with
-        // reference to the parent width
-        val dividerRight: Int = parent.width - 32
-        parent.forEach { child ->
-            if (child.top < parent.height && child.bottom > 0) {
-                // Child is visible
-                val layout = _headerSlots[parent.getChildAdapterPosition(child)]
-                if (layout != null) {
-                    val dx = centerX - (layout.width / 2)
-                    val dy = layoutManager.getDecoratedTop(child) +
-                            child.translationY +
-                            // offset vertically within the space according to the bias
-                            (decorHeight - layout.height) * verticalBias
-                    canvas.withTranslation(x = 0f + dividerLeft, y = dy) {
-                        layout.draw(this)
-                    }
-
-
-                    val params = child.layoutParams as RecyclerView.LayoutParams
-
-
-                    val firstDividerTop: Int = child.top+ params.topMargin
-                    val firstDividerBottom: Int = firstDividerTop + divider.intrinsicHeight
-                    divider.setBounds(dividerLeft,  firstDividerTop, dividerRight, firstDividerBottom)
-                    divider.draw(canvas)
-
-                    val dividerTop: Int = child.bottom + params.bottomMargin
-                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
-                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-                    divider.draw(canvas)
-
-                } else {
-                    val params = child.layoutParams as RecyclerView.LayoutParams
-
-                    // calculating the distance of the
-                    // divider to be drawn from the top
-                    val dividerTop: Int = child.bottom + params.bottomMargin
-                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
-
-                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
-                    divider.draw(canvas)
-                }
-            }
-        }
-    }
-
-    /**
-     * Create a header layout for the given [time]
-     */
-    fun createHeader(
-        title: String,
-    ): StaticLayout {
-        return newStaticLayout(title, paint, textWidth, ALIGN_CENTER, 1f, 0f, false)
-    }
-
-    private fun getDefaultDivider(context: Context): Drawable? {
-        val attrsDivider = intArrayOf(android.R.attr.listDivider)
-        val styledAttributes = context.obtainStyledAttributes(attrsDivider)
-        val divider = styledAttributes.getDrawable(0)
-        styledAttributes.recycle()
-        return divider
-    }
-
-}
 
 ================
 File: feature/src/main/java/com/ltthuc/ui/adapter/AdapterRowData.kt
@@ -2321,6 +2072,245 @@ class PagingLoadStateAdapter<T : Any, VH : RecyclerView.ViewHolder>(
 }
 
 ================
+File: feature/src/main/java/com/ltthuc/ui/adapter/section/CustomItemDecoration.kt
+================
+package com.ltthuc.ui.adapter.section
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+
+class CustomItemDecoration(
+    context: Context,
+    private val isShowLastDivider: Boolean = false,
+    private val isShowFirstDivider: Boolean = true,
+    private val isShowTopDivider: Boolean = false,
+) : RecyclerView.ItemDecoration() {
+
+    private val ATTRS = intArrayOf(android.R.attr.listDivider)
+    private var mDivider: Drawable? = null
+
+    init {
+        val a = context.obtainStyledAttributes(ATTRS)
+        mDivider = a.getDrawable(0)
+        a.recycle()
+    }
+
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        val left = 0
+        val right = parent.width
+
+        for (i in 0 until parent.childCount) {
+            val child: View = parent.getChildAt(i)
+            val position = parent.getChildLayoutPosition(child)
+
+            val params = child.layoutParams as RecyclerView.LayoutParams
+
+            val top: Int = child.bottom + params.bottomMargin
+            val bottom: Int = top + (mDivider?.intrinsicHeight ?: 0)
+
+            if (position != state.itemCount - 1 || isShowLastDivider ) {
+                mDivider?.setBounds(left, top, right, bottom)
+                mDivider?.draw(c)
+            }
+
+            if (position == 0 && isShowTopDivider) {
+                val bottomFirst = child.top - params.topMargin
+                val topFirst = bottomFirst - (mDivider?.intrinsicHeight ?: 0)
+                mDivider?.setBounds(left, topFirst, right, bottomFirst)
+                mDivider?.draw(c)
+            }
+
+
+        }
+    }
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State,
+    ) {
+        val position = parent.getChildLayoutPosition(view)
+
+        // hide the divider for the last child
+        if (!isShowLastDivider && position == state.itemCount - 1) {
+            outRect.setEmpty()
+        } else if (!isShowFirstDivider && position == 0) {
+            outRect.setEmpty()
+        } else if (isShowFirstDivider && isShowTopDivider && position == 0) {
+            val height = mDivider?.intrinsicHeight ?: 0
+            outRect.top = height
+            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
+
+        } else {
+            outRect.bottom = (mDivider?.intrinsicHeight ?: 0)
+            // super.getItemOffsets(outRect, view, parent, state)
+        }
+    }
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/adapter/section/SectionHeaderDecoration.kt
+================
+package com.ltthuc.ui.adapter.section
+
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.text.Layout.Alignment.ALIGN_CENTER
+import android.text.StaticLayout
+import android.text.TextPaint
+import android.view.View
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.res.getColorOrThrow
+import androidx.core.content.res.getDimensionOrThrow
+import androidx.core.content.res.getDimensionPixelSizeOrThrow
+import androidx.core.content.res.getResourceIdOrThrow
+import androidx.core.graphics.withTranslation
+import androidx.core.view.forEach
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import androidx.recyclerview.widget.RecyclerView.State
+import com.ltthuc.ui.R
+import com.ltthuc.ui.extension.newStaticLayout
+import kotlin.math.ceil
+
+/**
+ * A [RecyclerView.ItemDecoration] which draws sticky headers marking the header title in a given list of
+ * [Block]s. It also inserts gaps between days.
+ */
+class SectionHeadersDecoration(
+    val context: Context,
+    style: Int,
+) : ItemDecoration() {
+
+    private val paint: TextPaint
+    private val textWidth: Int
+    private val decorHeight: Int
+    private val verticalBias: Float
+    private val divider: Drawable
+    init {
+        val attrs = context.obtainStyledAttributes(
+            style,
+            R.styleable.SectionHeader
+        )
+        paint = TextPaint(Paint.ANTI_ALIAS_FLAG or Paint.SUBPIXEL_TEXT_FLAG).apply {
+            color = attrs.getColorOrThrow(R.styleable.SectionHeader_android_textColor)
+            textSize = attrs.getDimensionOrThrow(R.styleable.SectionHeader_android_textSize)
+            divider = attrs.getDrawable(R.styleable.SectionHeader_android_drawable)?: getDefaultDivider(context)!!
+
+
+            try {
+                typeface = ResourcesCompat.getFont(
+                    context,
+                    attrs.getResourceIdOrThrow(R.styleable.SectionHeader_android_fontFamily)
+                )
+            } catch (_: Exception) {
+                // ignore
+            }
+        }
+
+        paint.bgColor = ContextCompat.getColor(context, R.color.color_orange)
+
+        textWidth = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_width)
+        val height = attrs.getDimensionPixelSizeOrThrow(R.styleable.SectionHeader_android_height)
+        val minHeight = ceil(paint.textSize).toInt()
+        decorHeight = Math.max(height, minHeight)
+
+        verticalBias = attrs.getFloat(R.styleable.SectionHeader_verticalBias, 0.5f).coerceIn(0f, 1f)
+
+        attrs.recycle()
+    }
+
+    // Get the header index and create header layouts for each
+    private var _headerSlots: Map<Int, StaticLayout>  = emptyMap()
+
+    fun setHeaderSlot(slot: Map<Int, StaticLayout>) {
+        this._headerSlots = slot
+    }
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
+        val position = parent.getChildAdapterPosition(view)
+        outRect.top = if (_headerSlots.containsKey(position)) decorHeight else 0
+    }
+
+    override fun onDraw(canvas: Canvas, parent: RecyclerView, state: State) {
+        val layoutManager = parent.layoutManager ?: return
+        val centerX = parent.width / 2f
+        val dividerLeft: Int = 32
+
+        // right margin for the divider with
+        // reference to the parent width
+        val dividerRight: Int = parent.width - 32
+        parent.forEach { child ->
+            if (child.top < parent.height && child.bottom > 0) {
+                // Child is visible
+                val layout = _headerSlots[parent.getChildAdapterPosition(child)]
+                if (layout != null) {
+                    val dx = centerX - (layout.width / 2)
+                    val dy = layoutManager.getDecoratedTop(child) +
+                            child.translationY +
+                            // offset vertically within the space according to the bias
+                            (decorHeight - layout.height) * verticalBias
+                    canvas.withTranslation(x = 0f + dividerLeft, y = dy) {
+                        layout.draw(this)
+                    }
+
+
+                    val params = child.layoutParams as RecyclerView.LayoutParams
+
+
+                    val firstDividerTop: Int = child.top+ params.topMargin
+                    val firstDividerBottom: Int = firstDividerTop + divider.intrinsicHeight
+                    divider.setBounds(dividerLeft,  firstDividerTop, dividerRight, firstDividerBottom)
+                    divider.draw(canvas)
+
+                    val dividerTop: Int = child.bottom + params.bottomMargin
+                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
+                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                    divider.draw(canvas)
+
+                } else {
+                    val params = child.layoutParams as RecyclerView.LayoutParams
+
+                    // calculating the distance of the
+                    // divider to be drawn from the top
+                    val dividerTop: Int = child.bottom + params.bottomMargin
+                    val dividerBottom: Int = dividerTop + divider.intrinsicHeight
+
+                    divider.setBounds(dividerLeft, dividerTop, dividerRight, dividerBottom)
+                    divider.draw(canvas)
+                }
+            }
+        }
+    }
+
+    /**
+     * Create a header layout for the given [time]
+     */
+    fun createHeader(
+        title: String,
+    ): StaticLayout {
+        return newStaticLayout(title, paint, textWidth, ALIGN_CENTER, 1f, 0f, false)
+    }
+
+    private fun getDefaultDivider(context: Context): Drawable? {
+        val attrsDivider = intArrayOf(android.R.attr.listDivider)
+        val styledAttributes = context.obtainStyledAttributes(attrsDivider)
+        val divider = styledAttributes.getDrawable(0)
+        styledAttributes.recycle()
+        return divider
+    }
+
+}
+
+================
 File: feature/src/main/java/com/ltthuc/ui/adapter/SingleLayoutAdapter.kt
 ================
 package com.ltthuc.ui.adapter
@@ -2362,172 +2352,386 @@ open class SingleLayoutPagingAdapter<T : ItemComparable, B : ViewDataBinding>(
 }
 
 ================
-File: feature/src/main/java/com/ltthuc/ui/base/toolbar/IToolbar.kt
+File: feature/src/main/java/com/ltthuc/ui/adapter/WheelView.kt
 ================
-package com.ltthuc.ui.base.toolbar
+package com.ltthuc.ui.adapter
 
-interface IToolbar {
-    fun getToolbar(): ToolbarManager
-}
-
-================
-File: feature/src/main/java/com/ltthuc/ui/base/toolbar/ToolbarManager.kt
-================
-package com.ltthuc.ui.base.toolbar
-
+import android.app.Activity
+import android.content.Context
+import android.graphics.*
+import android.graphics.drawable.Drawable
+import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.Gravity
-import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
-import androidx.annotation.ColorInt
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.forEach
-import com.ltthuc.ui.R
+import androidx.core.view.ContentInfoCompat.Flags
+import com.ltthuc.feature.R
 
-class ToolbarManager(private val activity: AppCompatActivity) {
-    private var toolbar: Toolbar? = null
+/**
+ * Author: wangjie
+ * Email: tiantian.china.2@gmail.com
+ * Date: 7/1/14.
+ *
+ * Edited by John Codeos
+ */
+class WheelView : ScrollView {
 
-    // Base configuration for toolbar
-    data class ToolbarConfig(
-        val title: String? = null,
-        val titleColorResId: Int? = null, // Now using resource ID instead of direct color
-        val titleSize: Float = 18f,
-        val isTitleCentered: Boolean = true,  // Default to centered
-        val backgroundColorResId: Int? = null, // Now using resource ID
-        val navigationIcon: Int? = null,
-        val navigationIconTintResId: Int? = R.color.default_text_color, // Now using resource ID
-        val menuRes: Int? = null,
-        val menuIconTintResId: Int? = null, // Now using resource ID
-        val elevation: Float? = null,
-        val onNavigationClick: (() -> Unit)? = null,
-        val onMenuItemClick: ((MenuItem) -> Boolean)? = null
-    )
+    private lateinit var mContext: Context
 
-    // Visibility methods
-    fun hideToolbar() {
-        toolbar?.visibility = View.GONE
+    private lateinit var views: LinearLayout
+
+    private var items: MutableList<String>? = null
+
+    var offset = OFF_SET_DEFAULT
+
+    var linesColor: Int = Color.YELLOW
+
+    var selectedItemColor: Int = Color.YELLOW
+
+    var unselectedItemColor: Int = Color.YELLOW
+
+    var itemFont: Typeface? = null
+
+    var itemTextSize: Float = 25f
+    var itemPadding : Float = 12f
+
+    private var displayItemCount: Int = 0
+
+    private var selectedIndex = 1
+
+    private var initialY: Int = 0
+
+    private lateinit var scrollerTask: Runnable
+    private var newCheck = 50
+
+    private var itemHeight = 0
+
+    private var selectedAreaBorder: IntArray? = null
+
+    private var scrollDirection = -1
+
+    internal var paint: Paint? = null
+    internal var viewWidth: Int = 0
+
+    val getSelectedItem: String
+        get() = items!![selectedIndex]
+
+    val getSelectedIndex: Int
+        get() {
+            return selectedIndex - offset
+        }
+
+    lateinit var onWheelViewListener: OnWheelViewListener
+
+    open class OnWheelViewListener {
+        open fun onSelected(selectedIndex: Int, item: String) {}
     }
 
-    fun toggleToolbarVisibility() {
-        if (isToolbarVisible()) {
-            hideToolbar()
+    constructor(context: Context) : super(context) {
+        init(context)
+    }
+
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
+        init(context)
+                attrs.let {
+            val typedArray = context.obtainStyledAttributes(
+                it, R.styleable.WheelPicker, 0, 0)
+            selectedItemColor = typedArray.getColor(
+                R.styleable.WheelPicker_selectedTextColor,
+                ContextCompat.getColor(context, com.ltthuc.ui.R.color.primaryTextColor)
+            )
+            unselectedItemColor = typedArray.getColor(
+                R.styleable.WheelPicker_unSelectedTextColor,
+                ContextCompat.getColor(context, com.ltthuc.ui.R.color.primaryTextColor)
+            )
+
+            typedArray.recycle()
+        }
+
+    }
+
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(
+        context,
+        attrs,
+        defStyle
+    ) {
+        init(context)
+//        attrs?.let {
+//            val typedArray = context.obtainStyledAttributes(
+//                it, R.styleable.SegmentedControlGroup, 0, 0)
+//            sliderColor = typedArray.getColor(
+//                R.styleable.SegmentedControlGroup_customSliderColor,
+//                ContextCompat.getColor(context, R.color.white)
+//            )
+//            dividerColor = typedArray.getColor(
+//                R.styleable.SegmentedControlGroup_customDividerColor,
+//                ContextCompat.getColor(context, R.color.colorSegmentedControlDivider)
+//            )
+//            shadowColor = typedArray.getColor(
+//                R.styleable.SegmentedControlGroup_customShadowColor,
+//                ContextCompat.getColor(context, R.color.colorSegmentedControlShadow)
+//            )
+//            selectedColor = typedArray.getColor(
+//                R.styleable.SegmentedControlGroup_customSelectedColor,
+//                ContextCompat.getColor(context, R.color.default_text_color)
+//            )
+//            unSelectedColor = typedArray.getColor(
+//                R.styleable.SegmentedControlGroup_customUnSelectedColor,
+//                ContextCompat.getColor(context, R.color.default_text_color)
+//            )
+//            paddingLeftRight =
+//                typedArray.getDimensionPixelSize(R.styleable.SegmentedControlGroup_customPaddingLeftRight, 0)
+//            typedArray.recycle()
+//        }
+    }
+
+    private fun getItems(): List<String>? {
+        return items
+    }
+
+    fun setItems(list: List<String>) {
+        if (null == items) {
+            items = ArrayList()
+        }
+        items!!.clear()
+        items!!.addAll(list)
+
+        for (i in 0 until offset) {
+            items!!.add(0, "")
+            items!!.add("")
+        }
+        initData()
+    }
+
+
+    private fun init(context: Context) {
+        mContext = context
+        this.isVerticalScrollBarEnabled = false
+
+        views = LinearLayout(context)
+        views.orientation = LinearLayout.VERTICAL
+        this.addView(views)
+
+        scrollerTask = Runnable {
+            val newY = scrollY
+            if (initialY - newY == 0) { // stopped
+                val remainder = initialY % itemHeight
+                val divided = initialY / itemHeight
+                if (remainder == 0) {
+                    selectedIndex = divided + offset
+                    onSelectedCallBack()
+                } else {
+                    if (remainder > itemHeight / 2) {
+                        post {
+                            smoothScrollTo(0, initialY - remainder + itemHeight)
+                            selectedIndex = divided + offset + 1
+                            onSelectedCallBack()
+                        }
+                    } else {
+                        post {
+                            smoothScrollTo(0, initialY - remainder)
+                            selectedIndex = divided + offset
+                            onSelectedCallBack()
+                        }
+                    }
+                }
+            } else {
+                initialY = scrollY
+                postDelayed(scrollerTask, newCheck.toLong())
+            }
+        }
+    }
+
+    private fun startScrollerTask() {
+        initialY = scrollY
+        postDelayed(scrollerTask, newCheck.toLong())
+    }
+
+    private fun initData() {
+        displayItemCount = offset * 2 + 1
+
+        for (item in items!!) {
+            views.addView(createView(item))
+        }
+
+        refreshItemView(0)
+    }
+
+    private fun createView(item: String): TextView {
+        val textView = TextView(context)
+        textView.layoutParams = LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        textView.isSingleLine = true
+
+        textView.typeface = itemFont
+        textView.typeface = null
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, itemTextSize)
+        textView.text = item
+        textView.gravity = Gravity.CENTER
+        val padding = dip2px(itemPadding)
+        textView.setPadding(padding, padding, padding, padding)
+        if (0 == itemHeight) {
+            itemHeight = getViewMeasuredHeight(textView)
+            views.layoutParams = LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                itemHeight * displayItemCount
+            )
+            val lp = this.layoutParams as LinearLayout.LayoutParams
+            layoutParams = LinearLayout.LayoutParams(lp.width, itemHeight * displayItemCount)
+        }
+        return textView
+    }
+
+
+    override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
+        super.onScrollChanged(l, t, oldl, oldt)
+        refreshItemView(t)
+
+        scrollDirection = if (t > oldt) {
+            SCROLL_DIRECTION_DOWN
         } else {
-            showToolbar()
+            SCROLL_DIRECTION_UP
         }
     }
 
-    fun showToolbar() {
-        toolbar?.visibility = View.VISIBLE
-    }
+    private fun refreshItemView(y: Int) {
+        var position = y / itemHeight + offset
+        val remainder = y % itemHeight
+        val divided = y / itemHeight
 
-    fun isToolbarVisible(): Boolean {
-        return toolbar?.visibility == View.VISIBLE
-    }
-
-    fun getToolbar(): Toolbar? = toolbar
-
-    fun initToolbar(toolbar: Toolbar) {
-        this.toolbar = toolbar
-        activity.setSupportActionBar(toolbar)
-    }
-
-    fun configureToolbar(config: ToolbarConfig) {
-        toolbar?.let { applyBaseConfig(it, config) }
-    }
-
-    private fun applyBaseConfig(toolbar: Toolbar, config: ToolbarConfig) {
-        // Clear previous content
-        toolbar.title = null
-        toolbar.navigationIcon = null
-        toolbar.menu.clear()
-        showToolbar()
-
-        // Remove any previous custom title views
-        for (i in 0 until toolbar.childCount) {
-            val view = toolbar.getChildAt(i)
-            if (view is TextView && view.tag == "centered_title") {
-                toolbar.removeView(view)
-            }
-        }
-
-        // Set title
-        if (config.isTitleCentered) {
-            // For centered title, we need a custom view
-            val titleTextView = TextView(activity).apply {
-                text = config.title
-                textSize = config.titleSize
-                gravity = Gravity.CENTER
-                tag = "centered_title" // Add a tag to identify our custom view
-                layoutParams = Toolbar.LayoutParams(
-                    Toolbar.LayoutParams.WRAP_CONTENT,
-                    Toolbar.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    gravity = Gravity.CENTER
-                }
-
-                // Apply theme-aware title color
-                config.titleColorResId?.let {
-                    setTextColor(ContextCompat.getColor(activity, it))
-                } ?: run {
-                    // If no specific color is provided, use default text color from theme
-                    val typedValue = TypedValue()
-                    activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-                    setTextColor(typedValue.data)
-                }
-            }
-            toolbar.addView(titleTextView)
+        if (remainder == 0) {
+            position = divided + offset
         } else {
-            toolbar.title = config.title
-            config.titleColorResId?.let {
-                toolbar.setTitleTextColor(ContextCompat.getColor(activity, it))
-            } ?: run {
-                // If no specific color is provided, use default text color from theme
-                val typedValue = TypedValue()
-                activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
-                toolbar.setTitleTextColor(typedValue.data)
+            if (remainder > itemHeight / 2) {
+                position = divided + offset + 1
             }
         }
-
-        // Background color
-        config.backgroundColorResId?.let {
-            toolbar.setBackgroundColor(ContextCompat.getColor(activity, it))
-        }
-
-        // Elevation
-        config.elevation?.let {
-            toolbar.elevation = it
-        }
-
-        // Navigation icon
-        config.navigationIcon?.let { icon ->
-            toolbar.setNavigationIcon(icon)
-            config.navigationIconTintResId?.let { tintResId ->
-                toolbar.navigationIcon?.setTint(ContextCompat.getColor(activity, tintResId))
-            }
-            config.onNavigationClick?.let { listener ->
-                toolbar.setNavigationOnClickListener { listener() }
-            }
-        }
-
-        // Menu
-        config.menuRes?.let { menuRes ->
-            toolbar.inflateMenu(menuRes)
-            config.menuIconTintResId?.let { tintResId ->
-                val tintColor = ContextCompat.getColor(activity, tintResId)
-                toolbar.menu.forEach { menuItem ->
-                    menuItem.icon?.setTint(tintColor)
-                }
-            }
-            config.onMenuItemClick?.let { listener ->
-                toolbar.setOnMenuItemClickListener { menuItem ->
-                    listener(menuItem)
-                }
+        val childSize = views.childCount
+        for (i in 0 until childSize) {
+            val itemView = views.getChildAt(i) as TextView
+            itemView.setTypeface(null, Typeface.BOLD)
+            if (position == i) {
+                itemView.setTextColor(selectedItemColor) // Selected Item Text Color
+                itemView.alpha = 1f
+                itemView.textSize = itemTextSize+4
+            } else {
+                itemView.setTextColor(unselectedItemColor) // Unselected Item Text Color
+                itemView.alpha = 0.6f
+                itemView.textSize = itemTextSize
             }
         }
     }
+
+    private fun obtainSelectedAreaBorder(): IntArray {
+        if (null == selectedAreaBorder) {
+            selectedAreaBorder = IntArray(2)
+            selectedAreaBorder!![0] = itemHeight * offset
+            selectedAreaBorder!![1] = itemHeight * (offset + 1)
+        }
+        return selectedAreaBorder as IntArray
+    }
+
+//    override fun setBackground(background: Drawable?) {
+//        if (viewWidth == 0) {
+//            val displayMetrics = DisplayMetrics()
+//            (context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+//            val screenWidth = displayMetrics.widthPixels
+//        }
+//
+//        if (null == paint) {
+//            paint = Paint()
+//            paint?.color = linesColor //Lines Color
+//            paint?.strokeWidth = dip2px(1f).toFloat()
+//        }
+//
+//        val drawable = object : Drawable() {
+//            override fun draw(canvas: Canvas) {
+//                canvas.drawLine(
+//                    (viewWidth * 1 / 6).toFloat(),
+//                    obtainSelectedAreaBorder()[0].toFloat(),
+//                    (viewWidth * 5 / 6).toFloat(),
+//                    obtainSelectedAreaBorder()[0].toFloat(),
+//                    paint!!
+//                )
+//                canvas.drawLine(
+//                    (viewWidth * 1 / 6).toFloat(),
+//                    obtainSelectedAreaBorder()[1].toFloat(),
+//                    (viewWidth * 5 / 6).toFloat(),
+//                    obtainSelectedAreaBorder()[1].toFloat(),
+//                    paint!!
+//                )
+//            }
+//
+//            override fun setAlpha(alpha: Int) {}
+//
+//            override fun setColorFilter(cf: ColorFilter?) {}
+//
+//            @SuppressWarnings("deprecation")
+//            override fun getOpacity(): Int {
+//                return PixelFormat.UNKNOWN
+//            }
+//        }
+//        super.setBackground(drawable)
+//    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        viewWidth = w
+        background = null
+    }
+
+
+    private fun onSelectedCallBack() {
+        onWheelViewListener.onSelected(selectedIndex, items!![selectedIndex])
+    }
+
+    fun setSelection(position: Int) {
+        selectedIndex = position + offset
+        this.post { this@WheelView.smoothScrollTo(0, position * itemHeight) }
+
+    }
+
+
+    override fun fling(velocityY: Int) {
+        super.fling(velocityY / 3)
+    }
+
+    override fun onTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_UP) {
+            startScrollerTask()
+        }
+        return super.onTouchEvent(ev)
+    }
+
+    private fun dip2px(dpValue: Float): Int {
+        val scale = context?.resources?.displayMetrics?.density
+        return (dpValue * scale!! + 0.5f).toInt()
+    }
+
+    private fun getViewMeasuredHeight(view: View): Int {
+        val width = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+        val expandSpec =
+            MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE shr 2, MeasureSpec.AT_MOST)
+        view.measure(width, expandSpec)
+        return view.measuredHeight
+    }
+
+    companion object {
+        const val OFF_SET_DEFAULT = 1
+        private const val SCROLL_DIRECTION_UP = 0
+        private const val SCROLL_DIRECTION_DOWN = 1
+    }
+
 }
 
 ================
@@ -3230,6 +3434,175 @@ abstract class BaseViewModel: ViewModel() {
 }
 
 ================
+File: feature/src/main/java/com/ltthuc/ui/base/toolbar/IToolbar.kt
+================
+package com.ltthuc.ui.base.toolbar
+
+interface IToolbar {
+    fun getToolbar(): ToolbarManager
+}
+
+================
+File: feature/src/main/java/com/ltthuc/ui/base/toolbar/ToolbarManager.kt
+================
+package com.ltthuc.ui.base.toolbar
+
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.core.view.forEach
+import com.ltthuc.ui.R
+
+class ToolbarManager(private val activity: AppCompatActivity) {
+    private var toolbar: Toolbar? = null
+
+    // Base configuration for toolbar
+    data class ToolbarConfig(
+        val title: String? = null,
+        val titleColorResId: Int? = null, // Now using resource ID instead of direct color
+        val titleSize: Float = 18f,
+        val isTitleCentered: Boolean = true,  // Default to centered
+        val backgroundColorResId: Int? = null, // Now using resource ID
+        val navigationIcon: Int? = null,
+        val navigationIconTintResId: Int? = R.color.default_text_color, // Now using resource ID
+        val menuRes: Int? = null,
+        val menuIconTintResId: Int? = null, // Now using resource ID
+        val elevation: Float? = null,
+        val onNavigationClick: (() -> Unit)? = null,
+        val onMenuItemClick: ((MenuItem) -> Boolean)? = null
+    )
+
+    // Visibility methods
+    fun hideToolbar() {
+        toolbar?.visibility = View.GONE
+    }
+
+    fun toggleToolbarVisibility() {
+        if (isToolbarVisible()) {
+            hideToolbar()
+        } else {
+            showToolbar()
+        }
+    }
+
+    fun showToolbar() {
+        toolbar?.visibility = View.VISIBLE
+    }
+
+    fun isToolbarVisible(): Boolean {
+        return toolbar?.visibility == View.VISIBLE
+    }
+
+    fun getToolbar(): Toolbar? = toolbar
+
+    fun initToolbar(toolbar: Toolbar) {
+        this.toolbar = toolbar
+        activity.setSupportActionBar(toolbar)
+    }
+
+    fun configureToolbar(config: ToolbarConfig) {
+        toolbar?.let { applyBaseConfig(it, config) }
+    }
+
+    private fun applyBaseConfig(toolbar: Toolbar, config: ToolbarConfig) {
+        // Clear previous content
+        toolbar.title = null
+        toolbar.navigationIcon = null
+        toolbar.menu.clear()
+        showToolbar()
+
+        // Remove any previous custom title views
+        for (i in 0 until toolbar.childCount) {
+            val view = toolbar.getChildAt(i)
+            if (view is TextView && view.tag == "centered_title") {
+                toolbar.removeView(view)
+            }
+        }
+
+        // Set title
+        if (config.isTitleCentered) {
+            // For centered title, we need a custom view
+            val titleTextView = TextView(activity).apply {
+                text = config.title
+                textSize = config.titleSize
+                gravity = Gravity.CENTER
+                tag = "centered_title" // Add a tag to identify our custom view
+                layoutParams = Toolbar.LayoutParams(
+                    Toolbar.LayoutParams.WRAP_CONTENT,
+                    Toolbar.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    gravity = Gravity.CENTER
+                }
+
+                // Apply theme-aware title color
+                config.titleColorResId?.let {
+                    setTextColor(ContextCompat.getColor(activity, it))
+                } ?: run {
+                    // If no specific color is provided, use default text color from theme
+                    val typedValue = TypedValue()
+                    activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+                    setTextColor(typedValue.data)
+                }
+            }
+            toolbar.addView(titleTextView)
+        } else {
+            toolbar.title = config.title
+            config.titleColorResId?.let {
+                toolbar.setTitleTextColor(ContextCompat.getColor(activity, it))
+            } ?: run {
+                // If no specific color is provided, use default text color from theme
+                val typedValue = TypedValue()
+                activity.theme.resolveAttribute(android.R.attr.textColorPrimary, typedValue, true)
+                toolbar.setTitleTextColor(typedValue.data)
+            }
+        }
+
+        // Background color
+        config.backgroundColorResId?.let {
+            toolbar.setBackgroundColor(ContextCompat.getColor(activity, it))
+        }
+
+        // Elevation
+        config.elevation?.let {
+            toolbar.elevation = it
+        }
+
+        // Navigation icon
+        config.navigationIcon?.let { icon ->
+            toolbar.setNavigationIcon(icon)
+            config.navigationIconTintResId?.let { tintResId ->
+                toolbar.navigationIcon?.setTint(ContextCompat.getColor(activity, tintResId))
+            }
+            config.onNavigationClick?.let { listener ->
+                toolbar.setNavigationOnClickListener { listener() }
+            }
+        }
+
+        // Menu
+        config.menuRes?.let { menuRes ->
+            toolbar.inflateMenu(menuRes)
+            config.menuIconTintResId?.let { tintResId ->
+                val tintColor = ContextCompat.getColor(activity, tintResId)
+                toolbar.menu.forEach { menuItem ->
+                    menuItem.icon?.setTint(tintColor)
+                }
+            }
+            config.onMenuItemClick?.let { listener ->
+                toolbar.setOnMenuItemClickListener { menuItem ->
+                    listener(menuItem)
+                }
+            }
+        }
+    }
+}
+
+================
 File: feature/src/main/java/com/ltthuc/ui/base/UIState.kt
 ================
 package com.ltthuc.ui.base
@@ -3654,6 +4027,38 @@ File: feature/src/main/res/navigation/main_graph.xml
 </navigation>
 
 ================
+File: feature/src/main/res/values/attrs.xml
+================
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WheelPicker">
+        <attr name="fadingEdgeEnabled" format="boolean" />
+        <attr name="max" format="integer" />
+        <attr name="min" format="integer" />
+        <attr name="selectedTextColor" format="color" />
+        <attr name="unSelectedTextColor" format="color" />
+        <attr name="selectedTextScale" format="float" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="typeface" format="enum">
+            <enum name="normal" value="0"/>
+            <enum name="sans" value="1"/>
+            <enum name="serif" value="2"/>
+            <enum name="monospace" value="3"/>
+        </attr>
+        <attr name="wheelItemCount" format="integer" />
+        <attr name="wrapSelectorWheel" format="boolean" />
+        <attr name="minValidIndex" format="integer" />
+        <attr name="maxValidIndex" format="integer" />
+        <attr name="align">
+            <enum name="LEFT" value="0" />
+            <enum name="CENTER" value="1" />
+            <enum name="RIGHT" value="2" />
+        </attr>
+    </declare-styleable>
+</resources>
+
+================
 File: feature/src/main/res/values/dimens.xml
 ================
 <?xml version="1.0" encoding="utf-8"?>
@@ -3694,38 +4099,12 @@ File: feature/src/main/res/values/styles.xml
 </resources>
 
 ================
-File: feature/src/main/AndroidManifest.xml
+File: package.json
 ================
-<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-</manifest>
-
-================
-File: feature/.gitignore
-================
-/build
-
-================
-File: feature/build.gradle.kts
-================
-plugins {
-    alias(libs.plugins.ltthuc.android.feature)
-    id("kotlin-parcelize")
-}
-
-android {
-    namespace = "com.ltthuc.feature"
-    lint {
-        disable +=("MissingDefaultResource")
-    }
-}
-
-dependencies {
-    implementation(libs.androidx.datastore)
-    implementation(libs.bundles.network)
-    implementation(libs.androidx.paging)
+{
+  "devDependencies": {
+    "repomix": "^0.2.34"
+  }
 }
 
 
