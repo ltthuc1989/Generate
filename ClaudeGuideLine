@@ -1,0 +1,21 @@
+The repomix-output.txt file contains my entire codebase. Please review the overall structure from the repomix-output.txt file and convert iOS Swift code with UI screenshot from attached files to my code style and code guidelines:
+Coding Guidelines:
+
+-Review Swift code and Screenshot file to create UI with correct style
+-All new features should have corresponding navigation
+-UserPreferences in Swift code will be replaced with PreferencesRepository
+-The TextView size should use sp unit (1sp = 1dip) with this format: "@dimen/dimen_[size]sp" for example: android:textSize="@dimen/dimen12sp"
+-View width and height should use dp with this format: "@dimen/dimen[size]dp_h" for example (@dimen/dimen_14dp_h). If the text or background color looks like black, it should use this format: "?android:textColorPrimary"
+-The UI should display and match correctly with iOS screenshot and Swift code including: color, text size, and the relationship between View components
+-Use MaterialCardview in spite of cardview
+-The text size should be calculated in dip units and avoid bigger text sizes as they will not look good
+-The adapter will use SingleLayoutAdapter
+-Please review and convert all Swift code to avoid missing any conversions
+-iOS PickerView will be replaced with WheelView and BottomSheet on Android
+-Always review and implement code instead of leaving comments
+-Add string resource file
+-Always consider optimizing code, creating reusable code, and avoiding unnecessary repetition.
+-The API should be defined inside ApiVnMobileservice, implemented inside ApiServiceImp and used with ApiService (Note: only define API if iOS function is related to getting data from network or URL)
+-Need convert all swift code in spite of leave comment like that : ... shortened for brevity
+-All IOS Swift code need to match and replace with android code
+-The code have to support android sdk version from 24
